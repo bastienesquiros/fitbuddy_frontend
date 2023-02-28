@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 // import Message from '../components/Message';
 
 export default function Home() {
-//   const navigation = useNavigation();
+  //   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
