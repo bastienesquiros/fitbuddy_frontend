@@ -3,9 +3,9 @@ import { View, Pressable, StyleSheet } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Navigation } from '../models/Navigation';
 
-export default function Message({ navigation }: Navigation) {
+export default function SettingsIcon({ navigation }: Navigation) {
   const handlePress = () => {
-    navigation.navigate('Inbox');
+    navigation.navigate('Settings');
   };
 
   return (
@@ -13,7 +13,7 @@ export default function Message({ navigation }: Navigation) {
       <Pressable onPress={handlePress}>
         <FontAwesome
           style={styles.margin}
-          name={'paper-plane'}
+          name={'gear'}
           size={32.5}
           color={'#1A256A'}
         />

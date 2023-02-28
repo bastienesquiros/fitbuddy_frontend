@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function Inbox() {
+export default function Settings() {
   return (
     <View style={styles.container}>
-      <Text>Inbox Screen</Text>
+      <Text>Settings Screen</Text>
     </View>
   );
 }
