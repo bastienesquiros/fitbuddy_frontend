@@ -11,7 +11,7 @@
     "dependencies": {
         "@fortawesome/react-native-fontawesome": "^0.3.0",
         "@react-navigation/bottom-tabs": "6",
-        "@react-navigation/native": "6",
+        "@react-navigation/native": "^6.1.6",
         "@react-navigation/native-stack": "6",
         "@use-expo/font": "^2.0.0",
         "expo": "~48.0.4",

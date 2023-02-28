@@ -1,12 +1,10 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { View, Text, StyleSheet } from 'react-native'
 
-export default function Scheduled() {
-
+export default function Inbox() {
     return (
         <View style={styles.container}>
-            <Text>A Venir Screen</Text>
+            <Text>Inbox Screen</Text>
         </View>
     )
 
@@ -20,3 +18,4 @@ const styles = StyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
 })
+

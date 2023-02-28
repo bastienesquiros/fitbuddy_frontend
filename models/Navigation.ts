@@ -5,6 +5,8 @@ export type StackParamList = {
     SignUpProfil: undefined;
     SignUpSports: undefined;
     TabNavigator: undefined;
+    Inbox: undefined;
+    Message: undefined;
 };
 
 export type TabParamList = {
