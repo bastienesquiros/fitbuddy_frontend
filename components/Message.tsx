@@ -6,6 +6,7 @@ import { Navigation } from '../models/Navigation';
 export default function Message({ navigation }: Navigation) {
   const handlePress = () => {
     navigation.navigate('Inbox');
+    navigation.navigate('Inbox');
   };
 
   return (
