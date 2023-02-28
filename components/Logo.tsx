@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { LogoProps } from '../models/Logo';
 
-export default function Logo(props: LogoProps) {
+export default function Logo() {
   return (
     <View>
       <Text style={[styles.logo]}>FitBuddy</Text>
