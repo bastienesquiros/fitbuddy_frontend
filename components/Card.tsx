@@ -24,8 +24,8 @@ export default function Card(props: bookmarkProps) {
   // Display only x characters in description
   let description: string =
     'Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!!';
-  if (description.length > 115) {
-    description = description.substring(0, 115) + '....';
+  if (description.length > 110) {
+    description = description.substring(0, 110) + '....';
   }
 
   // Automated color change of logoInfo
@@ -72,7 +72,7 @@ export default function Card(props: bookmarkProps) {
             <Text style={styles.date}>Lundi 23 Février à 18h</Text>
           </View>
         </View>
-        {props.bookmarkOption && <Bookmark/>}
+        {props.bookmarkOption && <Bookmark />}
       </View>
       <Text style={styles.description}>{description}</Text>
       <View style={styles.bottomCard}>
@@ -113,10 +113,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     borderRadius: 10,
-    width: 400,
-    height: 180,
+    width: 330,
+    height: 170,
     marginTop: 10,
-    marginLeft: 20,
+    marginLeft: 10,
+    marginRight: 10,
     padding: 10,
     backgroundColor: 'white',
     // Shadow of the component

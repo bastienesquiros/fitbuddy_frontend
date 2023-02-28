@@ -1,10 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import CardsContainer from '../components/CardsContainer';
 
 export default function Home() {
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <ScrollView>
+        <CardsContainer bookmarkOption={true} />
+        <CardsContainer bookmarkOption={false} />
+        <CardsContainer bookmarkOption={true} />
+        <CardsContainer bookmarkOption={true} />
+        <CardsContainer bookmarkOption={true} />
+        <CardsContainer bookmarkOption={true} />
+        <CardsContainer bookmarkOption={true} />
+        <CardsContainer bookmarkOption={true} />
+        <CardsContainer bookmarkOption={false} />
+      </ScrollView>
     </View>
   );
 }

@@ -36,9 +36,7 @@ export default function CardsContainer(props: bookmarkProps) {
 const styles = StyleSheet.create({
   cardContainer: {
     marginTop: 20,
-    marginBottom: 20,
-    height: 250,
-    backgroundColor: 'blue',
+    height: 230,
   },
   topContainer: {
     display: 'flex',
