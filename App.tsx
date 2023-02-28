@@ -14,6 +14,7 @@ import SignIn from "./screens/SignIn";
 import SignUpInscription from "./screens/SignUpInscription";
 import SignUpProfil from "./screens/SignUpProfil";
 import SignUpSports from "./screens/SignUpSports";
+import Inbox from "./screens/Inbox";
 
 const Stack = createNativeStackNavigator<StackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -61,6 +62,7 @@ export default function App() {
                 <Stack.Screen name="SignUpProfil" component={SignUpProfil} />
                 <Stack.Screen name="SignUpSports" component={SignUpSports} />
                 <Stack.Screen name="TabNavigator" component={TabNavigator} />
+                <Stack.Screen name="Inbox" component={Inbox} />
             </Stack.Navigator>
         </NavigationContainer>
     );
