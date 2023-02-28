@@ -10,11 +10,6 @@ export default function Home() {
         <CardsContainer bookmarkOption={false} />
         <CardsContainer bookmarkOption={true} />
         <CardsContainer bookmarkOption={true} />
-        <CardsContainer bookmarkOption={true} />
-        <CardsContainer bookmarkOption={true} />
-        <CardsContainer bookmarkOption={true} />
-        <CardsContainer bookmarkOption={true} />
-        <CardsContainer bookmarkOption={false} />
       </ScrollView>
     </View>
   );
