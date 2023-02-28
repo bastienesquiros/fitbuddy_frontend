@@ -12,7 +12,6 @@ export default function SettingsIcon({ navigation }: Navigation) {
     <View>
       <Pressable onPress={handlePress}>
         <FontAwesome
-          style={styles.margin}
           name={'gear'}
           size={32.5}
           color={'#1A256A'}
@@ -22,8 +21,4 @@ export default function SettingsIcon({ navigation }: Navigation) {
   );
 }
 
-const styles = StyleSheet.create({
-  margin: {
-    marginLeft: -50,
-  },
-});
+const styles = StyleSheet.create({});

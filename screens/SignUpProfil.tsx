@@ -73,7 +73,7 @@ export default function SignUpProfil({ navigation }: Navigation) {
         />
       </View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('SignUpProfil')}
+        onPress={() => navigation.navigate('SignUpSports')}
         style={styles.button}
       >
         <Text style={styles.buttontext}> Suivant </Text>

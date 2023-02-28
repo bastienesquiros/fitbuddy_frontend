@@ -35,6 +35,7 @@ const headerWithLogoOnly = {
     elevation: 0,
     shadowOpacity: 0,
   },
+  headerShadowVisible: false,
 };
 
 const headerWithBackArrowOnly = {
@@ -42,10 +43,11 @@ const headerWithBackArrowOnly = {
   headerShown: true,
   headerTitle: '',
   headerStyle: {
-    backgroundColor: '#fff',
+    backgroundColor: '#F5FCFF',
     elevation: 0,
     shadowOpacity: 0,
   },
+  headerShadowVisible: false,
 };
 
 const TabNavigator = () => {
@@ -56,7 +58,7 @@ const TabNavigator = () => {
     headerShown: true,
     headerTitle: '',
     headerStyle: {
-      backgroundColor: '#fff',
+      backgroundColor: '#F5FCFF',
       elevation: 0,
       shadowOpacity: 0,
     },
@@ -73,7 +75,7 @@ const TabNavigator = () => {
     headerShown: true,
     headerTitle: '',
     headerStyle: {
-      backgroundColor: '#fff',
+      backgroundColor: '#F5FCFF',
       elevation: 0,
       shadowOpacity: 0,
     },
@@ -197,12 +199,10 @@ export default function App() {
         <Stack.Screen
           name="SignUpProfil"
           component={SignUpProfil}
-          options={headerWithLogoOnly}
         />
         <Stack.Screen
           name="SignUpSports"
           component={SignUpSports}
-          options={headerWithLogoOnly}
         />
         <Stack.Screen
           name="TabNavigator"

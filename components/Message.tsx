@@ -13,7 +13,6 @@ export default function Message({ navigation }: Navigation) {
     <View>
       <Pressable onPress={handlePress}>
         <FontAwesome
-          style={styles.margin}
           name={'paper-plane'}
           size={32.5}
           color={'#1A256A'}
@@ -23,8 +22,4 @@ export default function Message({ navigation }: Navigation) {
   );
 }
 
-const styles = StyleSheet.create({
-  margin: {
-    marginLeft: -50,
-  },
-});
+const styles = StyleSheet.create({});
