@@ -27,8 +27,8 @@ export default function SignIn({ navigation }: Navigation) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Connexion</Text>
-      <View>
+      <Text style={styles.title}>Connexion</Text>
+      <View style={styles.inputs}>
         <TextInput
           style={[styles.input, inputStates[0] && styles.inputFocus]}
           onFocus={() => handleFocus(0)}
@@ -44,7 +44,7 @@ export default function SignIn({ navigation }: Navigation) {
         onPress={() => navigation.navigate('TabNavigator')}
         style={styles.button}
       >
-        <Text style={styles.buttontext}> Connexion </Text>
+        <Text style={styles.buttonText}>Connexion</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -57,13 +57,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  title: {
+    fontFamily: 'Mukta-Regular',
+    fontSize: 24,
+  },
+  inputs: {
+    width: '100%',
+    display:'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   input: {
-    width: 250,
+    fontFamily: 'Mukta-Bold',
+    width: '70%',
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 6,
-    margin: 10,
+    margin: 20,
     padding: 5,
   },
   inputFocus: {
@@ -79,9 +90,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttontext: {
+  buttonText: {
+    fontFamily: 'Mukta-Bold',
+    fontSize: 18,
     color: 'white',
-    fontSize: 15,
-    fontWeight: 'bold',
   },
 });

@@ -24,8 +24,8 @@ export default function Card(props: bookmarkProps) {
   // Display only x characters in description
   let description: string =
     'Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!!';
-  if (description.length > 110) {
-    description = description.substring(0, 110) + '....';
+  if (description.length > 90) {
+    description = description.substring(0, 90) + '....';
   }
 
   // Automated color change of logoInfo
@@ -114,10 +114,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: 10,
     width: 330,
-    height: 170,
+    height: 180,
     marginTop: 10,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 7,
+    marginRight: 7,
     padding: 10,
     backgroundColor: 'white',
     // Shadow of the component
@@ -142,24 +142,30 @@ const styles = StyleSheet.create({
   user: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   name: {
+    fontFamily: 'Mukta-Regular',
+    lineHeight:30,
     fontSize: 18,
   },
   distance: {
+    fontFamily: 'Mukta-Regular',
+    lineHeight:16,
     fontSize: 13,
   },
   title: {
+    fontFamily: 'Mukta-Regular',
     marginLeft: 15,
   },
   sport: {
     fontSize: 20,
   },
   date: {
+    fontFamily: 'Mukta-Regular',
     fontSize: 13,
   },
   description: {
+    fontFamily: 'Mukta-Regular',
     marginLeft: 10,
   },
   bottomCard: {
@@ -175,6 +181,7 @@ const styles = StyleSheet.create({
   },
   participantsText: {
     fontSize: 13,
+    fontFamily: 'Mukta-Regular',
   },
   participantsLogo: {
     color: 'grey',

@@ -17,7 +17,7 @@ export default function Bookmark() {
     <View>
       <TouchableOpacity onPress={() => handleClick()}>
         <FontAwesomeIcon
-          size={25}
+          size={23}
           icon={faBookmark}
           style={markStyle}
         />
