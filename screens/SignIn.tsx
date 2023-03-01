@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#1A256A',
     border: 1,
     borderRadius: 6,
-    transition: '1s',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
