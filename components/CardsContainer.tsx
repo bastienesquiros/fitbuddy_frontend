@@ -22,7 +22,10 @@ export default function CardsContainer(props: bookmarkProps) {
           <Text style={styles.buttonSeeAll}>Tout voir</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView horizontal={true}>
+      <ScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+      >
         <Card bookmarkOption={props.bookmarkOption} />
         <Card bookmarkOption={props.bookmarkOption} />
         <Card bookmarkOption={props.bookmarkOption} />
