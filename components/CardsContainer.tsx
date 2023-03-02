@@ -23,7 +23,10 @@ export default function CardsContainer(props: bookmarkProps) {
         </TouchableOpacity>
       </View>
       <ScrollView
+        style={styles.scroll}
+       
         horizontal={true}
+      
         showsHorizontalScrollIndicator={false}
       >
         <Card bookmarkOption={props.bookmarkOption} />
@@ -39,7 +42,7 @@ export default function CardsContainer(props: bookmarkProps) {
 const styles = StyleSheet.create({
   cardContainer: {
     marginTop: 20,
-    height: 230,
+    height: 250,
   },
   topContainer: {
     display: 'flex',
@@ -50,7 +53,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontFamily: 'Mukta-Bold',
   },
-  buttonSeeAll: { fontSize: 18 },
+  buttonSeeAll: {
+    fontSize: 18,
+    fontFamily: 'Mukta-Regular',
+  },
+  scroll: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
 });

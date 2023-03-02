@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Pressable, StyleSheet } from 'react-native';
+import { View, Pressable, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Navigation } from '../models/Navigation';
 
@@ -10,15 +10,20 @@ export default function SettingsIcon({ navigation }: Navigation) {
 
   return (
     <View>
-      <Pressable onPress={handlePress}>
+      <TouchableOpacity onPress={handlePress}>
         <FontAwesome
           name={'gear'}
           size={32.5}
           color={'#1A256A'}
+          style={styles.buttonSetting}
         />
-      </Pressable>
+      </TouchableOpacity>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  buttonSetting: {
+    marginRight: Platform.OS === 'ios' ? 20 : 0,
+  }
+});

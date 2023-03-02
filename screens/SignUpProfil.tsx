@@ -42,8 +42,8 @@ export default function SignUpProfil({ navigation }: Navigation) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Profil</Text>
-      <View>
+      <Text style={styles.title}>Profil</Text>
+      <View style={styles.inputs}>
         <TextInput
           style={[styles.input, inputStates[0] && styles.inputFocus]}
           onFocus={() => handleFocus(0)}
@@ -89,8 +89,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
+  title: {
+    fontFamily: 'Mukta-Regular',
+    fontSize: 24,
+  },
+  inputs: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
   input: {
-    width: 250,
+    fontFamily: 'Mukta-Bold',
+    width: '70%',
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: 'black',
@@ -99,7 +110,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   inputBio: {
-    width: 250,
+    width: '70%',
     height: 150,
     borderStyle: 'solid',
     borderWidth: 1,
@@ -112,7 +123,7 @@ const styles = StyleSheet.create({
     borderColor: '#F1600D',
   },
   buttonDate: {
-    width: 250,
+    width: '70%',
     borderStyle: 'solid',
     borderWidth: 1,
     borderColor: 'black',
@@ -126,19 +137,18 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   button: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 150,
     height: 45,
     backgroundColor: '#1A256A',
     border: 1,
     borderRadius: 6,
-    transition: '1s',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   buttontext: {
+    fontFamily: 'Mukta-Bold',
+    fontSize: 18,
     color: 'white',
-    fontSize: 15,
-    fontWeight: 'bold',
   },
 });

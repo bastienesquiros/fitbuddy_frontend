@@ -8,7 +8,7 @@ export default function Home() {
       <ScrollView>
         <CardsContainer bookmarkOption={true} />
         <CardsContainer bookmarkOption={false} />
-        <CardsContainer bookmarkOption={true} />
+        <CardsContainer bookmarkOption={false}  />
         <CardsContainer bookmarkOption={true} />
       </ScrollView>
     </View>
