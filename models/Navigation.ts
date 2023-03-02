@@ -10,6 +10,8 @@ export type StackParamList = {
   Inbox: undefined;
   Message: undefined;
   Settings: undefined;
+  SeeAll: undefined;
+  CardsContainer: undefined;
 };
 
 export type TabParamList = {

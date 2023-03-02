@@ -22,6 +22,8 @@ import SignUpInscription from './screens/SignUpInscription';
 import SignUpProfil from './screens/SignUpProfil';
 import SignUpSports from './screens/SignUpSports';
 import Inbox from './screens/Inbox';
+import SeeAll from './screens/SeeAll';
+import CardsContainer from './components/CardsContainer';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -52,7 +54,7 @@ const headerWithBackArrowOnly = {
 
 const TabNavigator = () => {
   const navigation = useNavigation();
-
+  
   const headerWithMessage = {
     // Re-usable constant for the header with message icon only
     headerShown: true,
@@ -217,6 +219,11 @@ export default function App() {
           name="Settings"
           component={Settings}
           options={headerWithBackArrowOnly}
+        />
+        <Stack.Screen
+          name="SeeAll"
+          component={SeeAll}
+          // options={headerWithMessage}
         />
       </Stack.Navigator>
     </NavigationContainer>

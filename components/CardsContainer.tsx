@@ -8,17 +8,21 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import Card from './Card';
+import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-type bookmarkProps = {
+type cardProps = {
   bookmarkOption: boolean;
+  screenName: string;
 };
 
-export default function CardsContainer(props: bookmarkProps) {
+export default function CardsContainer(props: cardProps) {
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
   return (
     <View style={styles.cardContainer}>
       <View style={styles.topContainer}>
         <Text style={styles.title}>Pour moi</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate(props.screenName)}>
           <Text style={styles.buttonSeeAll}>Tout voir</Text>
         </TouchableOpacity>
       </View>
