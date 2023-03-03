@@ -3,7 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import Picker from './Picker';
 
 type SportCardProps = {
+  key: number;
   sport: string;
+  selected: boolean;
 };
 
 export default function SportCard(props: SportCardProps) {
@@ -23,39 +25,36 @@ export default function SportCard(props: SportCardProps) {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    height: 90,
-    width: 250,
+    height: 100,
+    width: 190,
     backgroundColor: 'white',
     marginBottom: 10,
+    marginTop: 10,
+    marginLeft: 10,
+    borderWidth: 1,
+    borderColor: 'white',
   },
   contentContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
     width: '100%',
     height: '70%',
   },
   pickerContainer: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     width: '100%',
-    height: '100%',
-    backgroundColor: 'white',
+    height: '50%',
   },
   title: {
     color: 'black',
-    fontSize: 20,
+    fontSize: 14,
     marginLeft: 5,
     fontFamily: 'Mukta-Bold',
+    textAlign: 'center',
   },
 
   textContainer: {
     width: '100%',
-    height: '50%',
-    justifyContent: 'flex-start',
-    backgroundColor: 'white',
-    alignItems: 'flex-start',
+    height: '65%',
   },
 });

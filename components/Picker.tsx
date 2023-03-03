@@ -3,15 +3,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
 const data = [
-  { label: 'Débutant', value: '1' },
-  { label: 'Intermédiaire', value: '2' },
-  { label: 'Expérimenté', value: '3' },
+  { label: 'Débutant', value: 'Débutant' },
+  { label: 'Intermédiaire', value: 'Intermédiaire' },
+  { label: 'Expérimenté', value: 'Expérimenté' },
 ];
 
 const DropdownComponent = () => {
-  const [value, setValue] = useState<string | null>(null);
+  const [levels, setLevels] = useState<string | null>(null);
   const [isFocus, setIsFocus] = useState(false);
-  console.log(value);
+
   return (
     <View style={styles.container}>
       <Dropdown
@@ -24,11 +24,11 @@ const DropdownComponent = () => {
         valueField="value"
         dropdownPosition="top"
         placeholder={!isFocus ? 'Votre Niveau' : '...'}
-        value={value}
+        value={levels}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
-          setValue(item.value);
+          setLevels(item.value);
           setIsFocus(false);
         }}
       />
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     display: 'flex',
     width: 170,
-    height: 60,
+    height: 50,
   },
   dropdown: {
     height: 30,

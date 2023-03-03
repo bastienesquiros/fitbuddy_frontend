@@ -10,33 +10,45 @@ import {
 import { Navigation } from '../models/Navigation';
 import SportCard from '../components/SportCard';
 import { useState, useEffect } from 'react';
+// import { useDispatch } from 'react-redux'; TO IMPORT
 
 type typeOfSportProps = {
-  recordid: string;
   fields: {
     activite: string;
-    niveau: string;
   };
 };
 
 export default function SignUpSports({ navigation }: Navigation) {
-  const [activites, setActivites] = useState<string[]>([]);
+  const [sports, setSports] = useState<string[]>([]);
   const [search, setSearch] = useState<string>('');
+  const [selectedSports, setSelectedSports] = useState<string[]>([]);
+  // const dispatch = useDispatch();
+
+  console.log(selectedSports);
+
+  const HandleSubmit = () => {
+    // dispatch(selectedSports)
+    navigation.navigate('TabNavigator');
+  };
 
   useEffect(() => {
+    // Fetch to retrieve sports names from API
     fetch(
-      'https://equipements.sports.gouv.fr/api/records/1.0/search/?dataset=data-es-activites&q=&rows=10'
+      'https://equipements.sports.gouv.fr/api/records/1.0/search/?dataset=data-es-activites&q=&rows=1000'
     )
       .then((response) => response.json())
       .then((sportsData) => {
         const typeOfSport = sportsData.records.map(
-          (typeOfSport: typeOfSportProps) => typeOfSport.fields.activite
+          (typeOfSportData: typeOfSportProps) => typeOfSportData.fields.activite
         );
-        setActivites(typeOfSport);
+        const uniqueSports = [...new Set(typeOfSport)].map(
+          (sport) => sport as string
+        );
+        if (!sports.some((sport) => uniqueSports.includes(sport))) {
+          setSports(uniqueSports);
+        }
       });
   }, []);
-
-  console.log(search);
 
   return (
     <View style={styles.container}>
@@ -48,24 +60,43 @@ export default function SignUpSports({ navigation }: Navigation) {
           style={styles.filter}
         ></TextInput>
       </View>
-      <View style={styles.cardContainer}>
-        <ScrollView>
-          {activites
+      <ScrollView style={styles.cardContainer}>
+        <View style={styles.cardContainerBis}>
+          {sports
             .filter((sport) =>
               sport.toLowerCase().includes(search.toLowerCase())
             )
             .sort()
             .map((sport, index) => (
-              <SportCard
+              <TouchableOpacity
+                style={
+                  selectedSports.includes(sport) ? styles.selectedCard : null
+                }
                 key={index}
-                sport={sport.substring(0, 35) + '...'}
-              />
+                onPress={() =>
+                  selectedSports.includes(sport)
+                    ? setSelectedSports(
+                        selectedSports.filter((s) => s !== sport)
+                      )
+                    : setSelectedSports([...selectedSports, sport])
+                }
+              >
+                <SportCard
+                  key={index}
+                  sport={sport.substring(0, 40) + '...'}
+                  selected={selectedSports.includes(sport)}
+                />
+              </TouchableOpacity>
             ))}
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
+
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('TabNavigator')}>
-          <Text>Go to Home</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => HandleSubmit()}
+        >
+          <Text style={styles.buttonText}>Go to Home</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -75,23 +106,21 @@ export default function SignUpSports({ navigation }: Navigation) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   cardContainer: {
-    backgroundColor: 'blue',
     width: '100%',
-    height: '80%',
+  },
+  cardContainerBis: {
     display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  selectedCard: {
+    backgroundColor: '#F1600D',
   },
   filterContainer: {
-    backgroundColor: 'green',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -99,15 +128,14 @@ const styles = StyleSheet.create({
     height: '15%',
   },
   buttonContainer: {
-    backgroundColor: 'yellow',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: '10%',
+    height: '8%',
   },
   filter: {
-    marginTop: 30,
+    marginTop: 40,
     backgroundColor: 'white',
     width: 360,
     height: 45,
@@ -118,5 +146,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  button: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 150,
+    height: 45,
+    backgroundColor: '#1A256A',
+    border: 1,
+    borderRadius: 6,
+  },
+  buttonText: {
+    fontFamily: 'Mukta-Bold',
+    fontSize: 18,
+    color: 'white',
   },
 });

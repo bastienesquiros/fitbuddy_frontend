@@ -24,9 +24,7 @@ export default function CardsContainer(props: bookmarkProps) {
       </View>
       <ScrollView
         style={styles.scroll}
-       
         horizontal={true}
-      
         showsHorizontalScrollIndicator={false}
       >
         <Card bookmarkOption={props.bookmarkOption} />
