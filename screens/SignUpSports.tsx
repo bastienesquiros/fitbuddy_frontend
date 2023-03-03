@@ -10,7 +10,9 @@ import {
 import { Navigation } from '../models/Navigation';
 import SportCard from '../components/SportCard';
 import { useState, useEffect } from 'react';
-// import { useDispatch } from 'react-redux'; TO IMPORT
+import { useDispatch, useSelector } from 'react-redux';
+import { addUser } from '../reducers/signup';
+import { UserState } from '../reducers/signup';
 
 type typeOfSportProps = {
   fields: {
@@ -22,12 +24,38 @@ export default function SignUpSports({ navigation }: Navigation) {
   const [sports, setSports] = useState<string[]>([]);
   const [search, setSearch] = useState<string>('');
   const [selectedSports, setSelectedSports] = useState<string[]>([]);
-  // const dispatch = useDispatch();
 
-  console.log(selectedSports);
+  const dispatch = useDispatch();
+  const userSignUpData = useSelector(
+    (state: { signup: UserState }) => state.signup.value
+  );
 
   const HandleSubmit = () => {
-    // dispatch(selectedSports)
+    dispatch(addUser({ sport: selectedSports }));
+    fetch('http://localhost:3000/users/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: userSignUpData.firstName,
+        lastName: userSignUpData.lastName,
+        pseudo: userSignUpData.pseudo,
+        avatar: userSignUpData.avatar,
+        birthday: userSignUpData.birthday,
+        gender: userSignUpData.gender,
+        bio: userSignUpData.bio,
+        email: userSignUpData.email,
+        inscriptionDate: userSignUpData.inscriptionDate,
+        sport: userSignUpData.sport,
+        level: userSignUpData.level,
+        password: userSignUpData.password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((res) => console.log(res))
+      .catch((error) => {
+        console.error('Error during sign up:', error);
+      });
+
     navigation.navigate('TabNavigator');
   };
 

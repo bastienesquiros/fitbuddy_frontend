@@ -13,6 +13,7 @@ export type UserState = {
     inscriptionDate: Date | null;
     sport: string | null;
     level: string | null;
+    password: string | null;
   };
 };
 
@@ -29,6 +30,7 @@ const initialState: UserState = {
     inscriptionDate: null,
     sport: null,
     level: null,
+    password: null,
   },
 };
 
@@ -48,6 +50,7 @@ export const userSlice = createSlice({
       state.value.inscriptionDate = action.payload.inscriptionDate;
       state.value.sport = action.payload.sport;
       state.value.level = action.payload.level;
+      state.value.password = action.payload.password;
     },
   },
 });

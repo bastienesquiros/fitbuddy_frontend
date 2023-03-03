@@ -12,6 +12,7 @@ import * as SplashScreen from 'expo-splash-screen'; // Import for using splash s
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import user from './reducers/user';
+import signup from './reducers/signup';
 
 // redux-persist imports
 import { persistStore, persistReducer } from 'redux-persist';
@@ -35,7 +36,7 @@ import SignUpSports from './screens/SignUpSports';
 import Inbox from './screens/Inbox';
 import SeeAll from './screens/SeeAll';
 
-const reducers = combineReducers({ user });
+const reducers = combineReducers({ user, signup });
 const persistConfig = { key: 'fitbuddy', storage: AsyncStorage };
 
 const store = configureStore({
