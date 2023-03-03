@@ -8,6 +8,17 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { useFonts } from 'expo-font'; // Import for using custom fonts with expo
 import * as SplashScreen from 'expo-splash-screen'; // Import for using splash screen (mandatory for custom fonts)
 
+// redux imports
+import { Provider } from 'react-redux';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import user from './reducers/user';
+
+// redux-persist imports
+import { persistStore, persistReducer } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+// import storage from 'redux-persist/lib/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import SettingsIcon from './components/Settings';
 import Message from './components/Message';
 import Logo from './components/Logo';
@@ -22,6 +33,17 @@ import SignUpInscription from './screens/SignUpInscription';
 import SignUpProfil from './screens/SignUpProfil';
 import SignUpSports from './screens/SignUpSports';
 import Inbox from './screens/Inbox';
+
+const reducers = combineReducers({ user });
+const persistConfig = { key: 'fitbuddy', storage: AsyncStorage };
+
+const store = configureStore({
+  reducer: persistReducer(persistConfig, reducers),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
+});
+
+const persistor = persistStore(store);
 
 const Stack = createNativeStackNavigator<StackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -177,48 +199,52 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}
-      >
-        <Stack.Screen
-          name="FirstPage"
-          component={FirstPage}
-          options={headerWithLogoOnly}
-        />
-        <Stack.Screen
-          name="SignIn"
-          component={SignIn}
-          options={headerWithLogoOnly}
-        />
-        <Stack.Screen
-          name="SignUpInscription"
-          component={SignUpInscription}
-          options={headerWithLogoOnly}
-        />
-        <Stack.Screen
-          name="SignUpProfil"
-          component={SignUpProfil}
-        />
-        <Stack.Screen
-          name="SignUpSports"
-          component={SignUpSports}
-        />
-        <Stack.Screen
-          name="TabNavigator"
-          component={TabNavigator}
-        />
-        <Stack.Screen
-          name="Inbox"
-          component={Inbox}
-          options={headerWithBackArrowOnly}
-        />
-        <Stack.Screen
-          name="Settings"
-          component={Settings}
-          options={headerWithBackArrowOnly}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}
+          >
+            <Stack.Screen
+              name="FirstPage"
+              component={FirstPage}
+              options={headerWithLogoOnly}
+            />
+            <Stack.Screen
+              name="SignIn"
+              component={SignIn}
+              options={headerWithLogoOnly}
+            />
+            <Stack.Screen
+              name="SignUpInscription"
+              component={SignUpInscription}
+              options={headerWithLogoOnly}
+            />
+            <Stack.Screen
+              name="SignUpProfil"
+              component={SignUpProfil}
+            />
+            <Stack.Screen
+              name="SignUpSports"
+              component={SignUpSports}
+            />
+            <Stack.Screen
+              name="TabNavigator"
+              component={TabNavigator}
+            />
+            <Stack.Screen
+              name="Inbox"
+              component={Inbox}
+              options={headerWithBackArrowOnly}
+            />
+            <Stack.Screen
+              name="Settings"
+              component={Settings}
+              options={headerWithBackArrowOnly}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 }
