@@ -6,10 +6,22 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <CardsContainer bookmarkOption={true} />
-        <CardsContainer bookmarkOption={false} />
-        <CardsContainer bookmarkOption={false}  />
-        <CardsContainer bookmarkOption={true} />
+        <CardsContainer
+          bookmarkOption={true}
+          screenName={'SeeAll'}
+        />
+        <CardsContainer
+          bookmarkOption={false}
+          screenName={'SeeAll'}
+        />
+        <CardsContainer
+          bookmarkOption={true}
+          screenName={'SeeAll'}
+        />
+        <CardsContainer
+          bookmarkOption={true}
+          screenName={'SeeAll'}
+        />
       </ScrollView>
     </View>
   );

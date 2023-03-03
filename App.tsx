@@ -33,6 +33,7 @@ import SignUpInscription from './screens/SignUpInscription';
 import SignUpProfil from './screens/SignUpProfil';
 import SignUpSports from './screens/SignUpSports';
 import Inbox from './screens/Inbox';
+import SeeAll from './screens/SeeAll';
 
 const reducers = combineReducers({ user });
 const persistConfig = { key: 'fitbuddy', storage: AsyncStorage };
@@ -240,6 +241,11 @@ export default function App() {
             <Stack.Screen
               name="Settings"
               component={Settings}
+              options={headerWithBackArrowOnly}
+            />
+            <Stack.Screen
+              name="SeeAll"
+              component={SeeAll}
               options={headerWithBackArrowOnly}
             />
           </Stack.Navigator>
