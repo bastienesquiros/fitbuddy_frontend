@@ -2,31 +2,65 @@ import {
   View,
   Text,
   StyleSheet,
-  ViewStyle,
-  TextStyle,
-  ImageStyle,
-  StyleProp,
 } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
   faUser,
-  faCircle,
-  faLeaf,
-  faFireFlameCurved,
 } from '@fortawesome/free-solid-svg-icons';
 import Bookmark from './Bookmark';
+import { useEffect, useState } from 'react';
 
 type bookmarkProps = {
   bookmarkOption: boolean;
 };
 
+// Temporary table
+const tabCard = {
+  author: [{ firstName: 'Sophie', lastName: 'Serais' }],
+  sport: 'Football',
+  address: [{ lat1: 44, lng1: 0 }],
+  lat2: 48,
+  lng2: 2,
+  description:
+    'Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!!',
+  totalPlayers: 3,
+  date: '28 mars 2023',
+  players: [{ player1: 1 }, { player2: 2 }],
+};
+
 export default function Card(props: bookmarkProps) {
+  const [distance, setDistance] = useState(0);
   // Display only x characters in description
-  let description: string =
-    'Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!! Salut qui veut faire du foot les gars jadore le foot mia le foot les ballons et tout hahaha !!!!';
-  if (description.length > 110) {
-    description = description.substring(0, 110) + '....';
+  let descriptionData: string = tabCard.description;
+  if (descriptionData.length > 110) {
+    descriptionData = descriptionData.substring(0, 110) + '....';
   }
+
+  // Display the distance between the person and the event
+  useEffect(() => {
+    const distanceNumber = function () {
+      let lat1: number = tabCard.address[0].lat1;
+      let lng1: number = tabCard.address[0].lng1;
+      let lat2: number = tabCard.lat2;
+      let lng2: number = tabCard.lng2;
+      var R = 6371; // Radius of the earth in km
+      var dLat = deg2rad(lat2 - lat1); // deg2rad below
+      var dLon = deg2rad(lng2 - lng1);
+      var a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) *
+          Math.cos(deg2rad(lat2)) *
+          Math.sin(dLon / 2) *
+          Math.sin(dLon / 2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      var d = R * c; // Distance in km
+      return d;
+    };
+    function deg2rad(deg: number) {
+      return (deg * Math.PI) / 180;
+    }
+    setDistance(distanceNumber);
+  }, []);
 
   // Automated color change of logoInfo
   // const displayedCard = selectedCard.map((card: any, i: any) => {
@@ -52,8 +86,8 @@ export default function Card(props: bookmarkProps) {
   // });
 
   // Combine the styles of 2 different types of properties, for icons info
-  const moodIcon: StyleProp<TextStyle> = [styles.moodIcon, styles.iconInfo];
-  const levelIcon: StyleProp<TextStyle> = [styles.levelIcon, styles.iconInfo];
+  // const moodIcon: StyleProp<TextStyle> = [styles.moodIcon, styles.iconInfo];
+  // const levelIcon: StyleProp<TextStyle> = [styles.levelIcon, styles.iconInfo];
 
   return (
     <View style={styles.card}>
@@ -64,21 +98,26 @@ export default function Card(props: bookmarkProps) {
               icon={faUser}
               size={40}
             />
-            <Text style={styles.name}>John Doe</Text>
-            <Text style={styles.distance}>à 3 km</Text>
+            <Text style={styles.name}>
+              {tabCard.author[0].firstName} {tabCard.author[0].lastName}
+            </Text>
+            <Text style={styles.distance}>à {Math.trunc(distance)} km</Text>
           </View>
           <View style={styles.title}>
-            <Text style={styles.sport}>Football</Text>
-            <Text style={styles.date}>Lundi 23 Février à 18h</Text>
+            <Text style={styles.sport}>{tabCard.sport}</Text>
+            <Text style={styles.date}>{tabCard.date}</Text>
           </View>
         </View>
         {props.bookmarkOption && <Bookmark />}
       </View>
-      <Text style={styles.description}>{description}</Text>
+      <Text style={styles.description}>{descriptionData}</Text>
       <View style={styles.bottomCard}>
         <View style={styles.participants}>
-          <Text style={styles.participantsText}>Participants : </Text>
-          <FontAwesomeIcon
+          <Text style={styles.participantsText}>
+            Participants : {tabCard.players.length}/{tabCard.totalPlayers}
+          </Text>
+          {/* Part to display participants with avatar: optionnal */}
+          {/* <FontAwesomeIcon
             style={styles.participantsLogo}
             icon={faCircle}
             size={20}
@@ -87,10 +126,10 @@ export default function Card(props: bookmarkProps) {
             style={styles.participantsLogo}
             icon={faCircle}
             size={20}
-          />
-          <Text>+3</Text>
+          /> */}
         </View>
-        <View style={styles.infoIcon}>
+        {/* Part to display the level and mood */}
+        {/* <View style={styles.infoIcon}>
           <FontAwesomeIcon
             style={moodIcon}
             icon={faLeaf}
@@ -101,7 +140,7 @@ export default function Card(props: bookmarkProps) {
             icon={faFireFlameCurved}
             size={20}
           />
-        </View>
+        </View> */}
       </View>
     </View>
   );
@@ -169,9 +208,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   participants: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   participantsText: {
     fontSize: 13,
