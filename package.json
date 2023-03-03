@@ -9,6 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
+
+ 
     "@babel/preset-env": "^7.20.2",
     "@fortawesome/fontawesome-svg-core": "6.3.0",
     "@fortawesome/free-brands-svg-icons": "^6.3.0",
@@ -78,7 +80,7 @@
     "@types/react-native-vector-icons": "^6.4.13",
     "typescript": "^4.9.5"
   },
-  "private": true,
+  "packageManager": "yarn@3.4.1",
   "peerDependencies": {
     "react-dom": "^16.9.0"
   }
