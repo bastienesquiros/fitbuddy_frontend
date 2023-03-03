@@ -23,12 +23,13 @@
     "@react-navigation/stack": "^6.3.16",
     "@reduxjs/toolkit": "^1.9.3",
     "@use-expo/font": "^2.0.0",
+    "antd": "^5.2.3",
     "expo": "~48.0.4",
     "expo-app-loading": "^2.1.1",
     "expo-font": "^11.1.1",
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
-    "react-native": "0.71.3",
+    "react-native": "^0.71.3",
     "react-native-date-picker": "^4.2.9",
     "react-native-datepicker": "^1.7.2",
     "react-native-modal-datetime-picker": "^14.0.1",
@@ -37,7 +38,8 @@
     "react-native-svg": "13.4.0",
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.5",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "start": "^5.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

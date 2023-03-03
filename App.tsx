@@ -16,7 +16,8 @@ import user from './reducers/user';
 // redux-persist imports
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import storage from 'redux-persist/lib/storage';
+// import storage from 'redux-persist/lib/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import SettingsIcon from './components/Settings';
 import Message from './components/Message';
@@ -34,7 +35,7 @@ import SignUpSports from './screens/SignUpSports';
 import Inbox from './screens/Inbox';
 
 const reducers = combineReducers({ user });
-const persistConfig = { key: 'fitbuddy', storage };
+const persistConfig = { key: 'fitbuddy', storage: AsyncStorage };
 
 const store = configureStore({
   reducer: persistReducer(persistConfig, reducers),
