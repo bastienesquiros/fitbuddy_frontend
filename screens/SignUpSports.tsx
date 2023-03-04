@@ -34,11 +34,20 @@ export default function SignUpSports({ navigation }: Navigation) {
 
   const handleSubmit = () => {
     // dispatch(addUser({ sport: selectedSports, level: 'null' }));
-    fetch('http://localhost:3001/users/signup', {
+    fetch('http://192.168.1.198:3000/users/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userSignUpData,
+        pseudo: userSignUpData.pseudo,
+        firstName: userSignUpData.firstName,
+        lastName: userSignUpData.lastName,
+        password: userSignUpData.password,
+        birthday: userSignUpData.birthday,
+        gender: userSignUpData.gender,
+        email: userSignUpData.email,
+        bio: userSignUpData.bio,
+        sport: selectedSports,
+        inscriptionDate: userSignUpData.inscriptionDate,
       }),
     })
       .then((response) => response.json())
@@ -46,7 +55,7 @@ export default function SignUpSports({ navigation }: Navigation) {
       .catch((error) => {
         console.error('Error during sign up:', error);
       });
-console.log(userSignUpData)
+    console.log(userSignUpData);
     navigation.navigate('TabNavigator');
   };
 
