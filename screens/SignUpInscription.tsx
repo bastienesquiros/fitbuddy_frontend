@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../reducers/signup';
+import { UserState } from '../reducers/signup';
 import {
   View,
   Text,
@@ -14,6 +15,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function SignUpInscription({ navigation }: Navigation) {
   // Created an inputStates array to store the state of each input tag. Added a handleFocus function that takes an index as an argument and updates the input tags' state accordingly. This function uses the fill method to set all values to false except for the current index, which is set to true.
   // Modified how we apply the onFocus effect to each input tag by using the current index to determine which tag is active.
+
+  const dispatch = useDispatch();
 
   const [inputStates, setInputStates] = useState<Array<boolean>>([
     false,
@@ -57,6 +60,22 @@ export default function SignUpInscription({ navigation }: Navigation) {
     }
   };
 
+  const handleSubmit = () => {
+    dispatch(
+      addUser({
+        password: password,
+        email: email,
+        pseudo: pseudo,
+      })
+    );
+  };
+
+  const userSignUpData = useSelector(
+    (state: { signup: UserState }) => state.signup.value
+  );
+
+  console.log('reducer:', userSignUpData);
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Formulaire d'inscription</Text>
@@ -97,7 +116,10 @@ export default function SignUpInscription({ navigation }: Navigation) {
         <Text style={styles.error}>Email ou mot de passe incorrect.</Text>
       )}
       <TouchableOpacity
-        onPress={() => handleVerifyPassword()}
+        onPress={() => {
+          handleVerifyPassword();
+          handleSubmit();
+        }}
         style={styles.button}
       >
         <Text style={styles.buttonText}> Inscription </Text>

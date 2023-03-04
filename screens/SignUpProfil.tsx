@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   View,
   Text,
@@ -10,8 +10,15 @@ import {
 import { Navigation } from '../models/Navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { addUser } from '../reducers/signup';
+import { UserState } from '../reducers/signup';
 
 export default function SignUpProfil({ navigation }: Navigation) {
+  const userSignUpData = useSelector(
+    (state: { signup: UserState }) => state.signup.value
+  );
+
+  console.log(userSignUpData);
   const [inputStates, setInputStates] = useState<Array<boolean>>([
     false,
     false,
@@ -45,13 +52,14 @@ export default function SignUpProfil({ navigation }: Navigation) {
   const [birthday, setBirthday] = useState<Date>(new Date());
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
-  // const [avatar, setAvatar] = useState<string>('');
+  const [avatar, setAvatar] = useState<string>('avatar');
   const [gender, setGender] = useState<string>('');
   const [bio, setBio] = useState<string>('');
 
   const [forgetInput, setForgetInput] = useState<boolean>(false);
 
   const today = new Date();
+  const dispatch = useDispatch();
 
   const handleRadioChange = (value: string) => {
     setGender(value);
@@ -66,6 +74,20 @@ export default function SignUpProfil({ navigation }: Navigation) {
       setForgetInput(false);
       console.log(lastName, firstName, bio, 'birthday =>', birthday, gender);
     }
+  };
+
+  const handleSubmit = () => {
+    dispatch(
+      addUser({
+        birthday: birthday,
+        firstName: firstName,
+        lastName: lastName,
+        gender: gender,
+        bio: bio,
+        avatar: avatar,
+        inscriptionDate: today,
+      })
+    );
   };
 
   return (
@@ -142,7 +164,10 @@ export default function SignUpProfil({ navigation }: Navigation) {
         <Text style={styles.error}>Il manque des informations.</Text>
       )}
       <TouchableOpacity
-        onPress={() => handleVerifyInput()}
+        onPress={() => {
+          handleVerifyInput();
+          handleSubmit();
+        }}
         style={styles.button}
       >
         <Text style={styles.buttontext}> Suivant </Text>

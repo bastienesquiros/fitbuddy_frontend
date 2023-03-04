@@ -30,24 +30,15 @@ export default function SignUpSports({ navigation }: Navigation) {
     (state: { signup: UserState }) => state.signup.value
   );
 
-  const HandleSubmit = () => {
-    dispatch(addUser({ sport: selectedSports }));
-    fetch('http://localhost:3000/users/signup', {
+  console.log(userSignUpData);
+
+  const handleSubmit = () => {
+    dispatch(addUser({ sport: selectedSports, level: 'null' }));
+    fetch('http://192.168.217.242:3000/users/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        firstName: userSignUpData.firstName,
-        lastName: userSignUpData.lastName,
-        pseudo: userSignUpData.pseudo,
-        avatar: userSignUpData.avatar,
-        birthday: userSignUpData.birthday,
-        gender: userSignUpData.gender,
-        bio: userSignUpData.bio,
-        email: userSignUpData.email,
-        inscriptionDate: userSignUpData.inscriptionDate,
-        sport: userSignUpData.sport,
-        level: userSignUpData.level,
-        password: userSignUpData.password,
+        userSignUpData,
       }),
     })
       .then((response) => response.json())
@@ -122,7 +113,7 @@ export default function SignUpSports({ navigation }: Navigation) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => HandleSubmit()}
+          onPress={() => handleSubmit()}
         >
           <Text style={styles.buttonText}>Go to Home</Text>
         </TouchableOpacity>

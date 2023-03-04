@@ -39,18 +39,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action: PayloadAction<any>) => {
-      state.value.email = action.payload.email;
-      state.value.firstName = action.payload.firstName;
-      state.value.lastName = action.payload.lastName;
-      state.value.pseudo = action.payload.pseudo;
-      state.value.avatar = action.payload.avatar;
-      state.value.birthday = action.payload.birthday;
-      state.value.gender = action.payload.gender;
-      state.value.bio = action.payload.bio;
-      state.value.inscriptionDate = action.payload.inscriptionDate;
-      state.value.sport = action.payload.sport;
-      state.value.level = action.payload.level;
-      state.value.password = action.payload.password;
+      state.value = { ...state.value, ...action.payload };
     },
   },
 });
