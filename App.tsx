@@ -10,15 +10,9 @@ import * as SplashScreen from 'expo-splash-screen'; // Import for using splash s
 
 // redux imports
 import { Provider } from 'react-redux';
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import user from './reducers/user';
 import signup from './reducers/signup';
-
-// redux-persist imports
-import { persistStore, persistReducer } from 'redux-persist';
-import { PersistGate } from 'redux-persist/integration/react';
-// import storage from 'redux-persist/lib/storage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import SettingsIcon from './components/Settings';
 import Message from './components/Message';
@@ -36,19 +30,14 @@ import SignUpSports from './screens/SignUpSports';
 import Inbox from './screens/Inbox';
 import SeeAll from './screens/SeeAll';
 
-const reducers = combineReducers({ user, signup });
-const persistConfig = { key: 'fitbuddy', storage: AsyncStorage };
+const Stack = createNativeStackNavigator<StackParamList>();
+const Tab = createBottomTabNavigator<TabParamList>();
 
 const store = configureStore({
-  reducer: persistReducer(persistConfig, reducers),
+  reducer: { user, signup },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });
-
-const persistor = persistStore(store);
-
-const Stack = createNativeStackNavigator<StackParamList>();
-const Tab = createBottomTabNavigator<TabParamList>();
 
 const headerWithLogoOnly = {
   // Re-usable constant for the header with logo & back arrow
@@ -202,56 +191,54 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}
-          >
-            <Stack.Screen
-              name="FirstPage"
-              component={FirstPage}
-              options={headerWithLogoOnly}
-            />
-            <Stack.Screen
-              name="SignIn"
-              component={SignIn}
-              options={headerWithLogoOnly}
-            />
-            <Stack.Screen
-              name="SignUpInscription"
-              component={SignUpInscription}
-              options={headerWithLogoOnly}
-            />
-            <Stack.Screen
-              name="SignUpProfil"
-              component={SignUpProfil}
-            />
-            <Stack.Screen
-              name="SignUpSports"
-              component={SignUpSports}
-            />
-            <Stack.Screen
-              name="TabNavigator"
-              component={TabNavigator}
-            />
-            <Stack.Screen
-              name="Inbox"
-              component={Inbox}
-              options={headerWithBackArrowOnly}
-            />
-            <Stack.Screen
-              name="Settings"
-              component={Settings}
-              options={headerWithBackArrowOnly}
-            />
-            <Stack.Screen
-              name="SeeAll"
-              component={SeeAll}
-              options={headerWithBackArrowOnly}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PersistGate>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}
+        >
+          <Stack.Screen
+            name="FirstPage"
+            component={FirstPage}
+            options={headerWithLogoOnly}
+          />
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={headerWithLogoOnly}
+          />
+          <Stack.Screen
+            name="SignUpInscription"
+            component={SignUpInscription}
+            options={headerWithLogoOnly}
+          />
+          <Stack.Screen
+            name="SignUpProfil"
+            component={SignUpProfil}
+          />
+          <Stack.Screen
+            name="SignUpSports"
+            component={SignUpSports}
+          />
+          <Stack.Screen
+            name="TabNavigator"
+            component={TabNavigator}
+          />
+          <Stack.Screen
+            name="Inbox"
+            component={Inbox}
+            options={headerWithBackArrowOnly}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={Settings}
+            options={headerWithBackArrowOnly}
+          />
+          <Stack.Screen
+            name="SeeAll"
+            component={SeeAll}
+            options={headerWithBackArrowOnly}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 }

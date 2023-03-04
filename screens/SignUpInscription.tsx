@@ -15,7 +15,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function SignUpInscription({ navigation }: Navigation) {
   // Created an inputStates array to store the state of each input tag. Added a handleFocus function that takes an index as an argument and updates the input tags' state accordingly. This function uses the fill method to set all values to false except for the current index, which is set to true.
   // Modified how we apply the onFocus effect to each input tag by using the current index to determine which tag is active.
-
   const dispatch = useDispatch();
 
   const [inputStates, setInputStates] = useState<Array<boolean>>([
@@ -63,9 +62,9 @@ export default function SignUpInscription({ navigation }: Navigation) {
   const handleSubmit = () => {
     dispatch(
       addUser({
-        password: password,
-        email: email,
         pseudo: pseudo,
+        email: email,
+        password: password,
       })
     );
   };
