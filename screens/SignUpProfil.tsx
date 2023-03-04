@@ -47,7 +47,7 @@ export default function SignUpProfil({ navigation }: Navigation) {
   const [birthday, setBirthday] = useState<Date>(new Date());
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
-  const [avatar, setAvatar] = useState<string>('avatar');
+  // const [avatar, setAvatar] = useState<string>('avatar');
   const [gender, setGender] = useState<string>('');
   const [bio, setBio] = useState<string>('');
 
@@ -63,11 +63,11 @@ export default function SignUpProfil({ navigation }: Navigation) {
   const handleVerifyInput = () => {
     if (lastName === '' || firstName === '' || gender === '') {
       setForgetInput(true);
-      console.log('birthday =>', birthday, today, gender);
+      // console.log('birthday =>', birthday, today, gender);
     } else {
       navigation.navigate('SignUpSports');
       setForgetInput(false);
-      console.log(lastName, firstName, bio, 'birthday =>', birthday, gender);
+      // console.log(lastName, firstName, bio, 'birthday =>', birthday, gender);
     }
   };
 
@@ -79,7 +79,7 @@ export default function SignUpProfil({ navigation }: Navigation) {
         lastName: lastName,
         gender: gender,
         bio: bio,
-        avatar: avatar,
+        // avatar: avatar,
         inscriptionDate: today,
       })
     );

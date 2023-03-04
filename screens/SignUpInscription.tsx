@@ -50,12 +50,12 @@ export default function SignUpInscription({ navigation }: Navigation) {
       setForgetInput(false);
       if (password === passwordAgain && EMAIL_REGEX.test(email)) {
         navigation.navigate('SignUpProfil');
-        console.log('navigate');
-        console.log(pseudo, email, password, passwordAgain);
+        // console.log('navigate');
+        // console.log(pseudo, email, password, passwordAgain);
         setPasswordError(false);
       } else {
         setPasswordError(true);
-        console.log('mauvais mot de passe');
+        // console.log('mauvais mot de passe');
       }
     }
   };

@@ -6,14 +6,15 @@ export type UserState = {
     firstName: string | null;
     lastName: string | null;
     pseudo: string | null;
-    avatar: string | null;
+    // avatar: string | null;
     birthday: Date | null;
     gender: string | null;
     bio: string | null;
     inscriptionDate: Date | null;
-    sport: string | null;
-    level: string | null;
+    // sport: string | null;
+    // level: string | null;
     password: string | null;
+    token: string | null;
   };
 };
 
@@ -23,14 +24,15 @@ const initialState: UserState = {
     firstName: null,
     lastName: null,
     pseudo: null,
-    avatar: null,
+    // avatar: null,
     birthday: null,
     gender: null,
     bio: null,
     inscriptionDate: null,
-    sport: null,
-    level: null,
+    // sport: null,
+    // level: null,
     password: null,
+    token: null,
   },
 };
 

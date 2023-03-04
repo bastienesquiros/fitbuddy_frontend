@@ -25,26 +25,33 @@ export default function SignUpSports({ navigation }: Navigation) {
   const [search, setSearch] = useState<string>('');
   const [selectedSports, setSelectedSports] = useState<string[]>([]);
 
-  const dispatch = useDispatch();
   const userSignUpData = useSelector(
     (state: { signup: UserState }) => state.signup.value
   );
 
   const handleSubmit = () => {
-    dispatch(addUser({ sport: selectedSports, level: 'null' }));
-    fetch('http://192.168.217.242:3000/users/signup', {
+    fetch('http://192.168.1.198:3000/users/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userSignUpData,
+        pseudo: userSignUpData.pseudo,
+        firstName: userSignUpData.firstName,
+        lastName: userSignUpData.lastName,
+        password: userSignUpData.password,
+        birthday: userSignUpData.birthday,
+        gender: userSignUpData.gender,
+        email: userSignUpData.email,
+        bio: userSignUpData.bio,
+        sport: selectedSports,
+        inscriptionDate: userSignUpData.inscriptionDate,
       }),
     })
       .then((response) => response.json())
-      .then((res) => console.log(res))
+      // .then((res) => console.log(res))
       .catch((error) => {
         console.error('Error during sign up:', error);
       });
-
+    console.log(userSignUpData);
     navigation.navigate('TabNavigator');
   };
 
