@@ -13,6 +13,10 @@ export default function SignIn({ navigation }: Navigation) {
   // Created an inputStates array to store the state of each input tag. Added a handleFocus function that takes an index as an argument and updates the input tags' state accordingly. This function uses the fill method to set all values to false except for the current index, which is set to true.
   // Modified how we apply the onFocus effect to each input tag by using the current index to determine which tag is active.
 
+  const [password, setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [wrongcreditentials, setWrongCreditentials] = useState<boolean>(false);
+
   const [inputStates, setInputStates] = useState<Array<boolean>>([
     false,
     false,
@@ -25,27 +29,55 @@ export default function SignIn({ navigation }: Navigation) {
     setInputStates(newInputStates);
   };
 
+  const handleSignIn = () => {
+    fetch('http://192.168.217.242:3000/users/signin', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.result === true) {
+          console.log(res);
+          navigation.navigate('TabNavigator');
+        } else {
+          console.log(res);
+          setWrongCreditentials(true);
+        }
+      });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Connexion</Text>
       <View style={styles.inputs}>
         <TextInput
           style={[styles.input, inputStates[0] && styles.inputFocus]}
+          onChangeText={(text: string) => setEmail(text)}
+          value={email}
           onFocus={() => handleFocus(0)}
           placeholder="Adresse mail"
         />
         <TextInput
           style={[styles.input, inputStates[1] && styles.inputFocus]}
+          onChangeText={(text: string) => setPassword(text)}
+          value={password}
           onFocus={() => handleFocus(1)}
           placeholder="Mot de passe"
         />
       </View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('TabNavigator')}
+        onPress={() => handleSignIn()}
         style={styles.button}
       >
         <Text style={styles.buttonText}>Connexion</Text>
       </TouchableOpacity>
+      {wrongcreditentials && (
+        <Text style={styles.error}>Wrong Creditentials</Text>
+      )}
     </SafeAreaView>
   );
 }
@@ -63,7 +95,7 @@ const styles = StyleSheet.create({
   },
   inputs: {
     width: '100%',
-    display:'flex',
+    display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
@@ -94,5 +126,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Mukta-Bold',
     fontSize: 18,
     color: 'white',
+  },
+  error: {
+    fontFamily: 'Mukta-Regular',
+    fontSize: 18,
+    color: 'red',
   },
 });

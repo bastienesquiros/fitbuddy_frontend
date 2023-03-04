@@ -30,8 +30,6 @@ export default function SignUpSports({ navigation }: Navigation) {
     (state: { signup: UserState }) => state.signup.value
   );
 
-  console.log(userSignUpData);
-
   const handleSubmit = () => {
     dispatch(addUser({ sport: selectedSports, level: 'null' }));
     fetch('http://192.168.217.242:3000/users/signup', {

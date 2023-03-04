@@ -70,12 +70,6 @@ export default function SignUpInscription({ navigation }: Navigation) {
     );
   };
 
-  const userSignUpData = useSelector(
-    (state: { signup: UserState }) => state.signup.value
-  );
-
-  console.log('reducer:', userSignUpData);
-
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Formulaire d'inscription</Text>

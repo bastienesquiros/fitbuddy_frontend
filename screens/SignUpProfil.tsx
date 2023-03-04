@@ -14,11 +14,6 @@ import { addUser } from '../reducers/signup';
 import { UserState } from '../reducers/signup';
 
 export default function SignUpProfil({ navigation }: Navigation) {
-  const userSignUpData = useSelector(
-    (state: { signup: UserState }) => state.signup.value
-  );
-
-  console.log(userSignUpData);
   const [inputStates, setInputStates] = useState<Array<boolean>>([
     false,
     false,
