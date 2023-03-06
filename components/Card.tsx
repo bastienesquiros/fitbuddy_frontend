@@ -1,14 +1,15 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Bookmark from './Bookmark';
 import { useEffect, useState } from 'react';
+import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 type bookmarkProps = {
   bookmarkOption: boolean;
 };
 
-// Temporary table
 const tabCard = {
   author: [{ firstName: 'Sophie', lastName: 'Serais' }],
   sport: 'Football',
@@ -29,6 +30,20 @@ export default function Card(props: bookmarkProps) {
   if (descriptionData.length > 110) {
     descriptionData = descriptionData.substring(0, 110) + '....';
   }
+  const IP = '10.188.115.145';
+  const [cardsData, setCardsData] = useState<[]>([]);
+
+  useEffect(() => {
+    fetch(`http://${IP}:3000/events`)
+      .then((response) => response.json())
+      .then((eventsData) => {
+        setCardsData(eventsData.events);
+      });
+  }, []);
+
+  // cardsData.map((card) => {
+  //   console.log(card.address);
+  // });
 
   // Display the distance between the person and the event
   useEffect(() => {
@@ -82,36 +97,51 @@ export default function Card(props: bookmarkProps) {
   // Combine the styles of 2 different types of properties, for icons info
   // const moodIcon: StyleProp<TextStyle> = [styles.moodIcon, styles.iconInfo];
   // const levelIcon: StyleProp<TextStyle> = [styles.levelIcon, styles.iconInfo];
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+
+  const handlePress = (props: {}) => {
+    navigation.navigate('FullCard', props);
+  };
 
   return (
-    <View style={styles.card}>
-      <View style={styles.topCard}>
-        <View style={styles.topCardLeft}>
-          <View style={styles.user}>
-            <FontAwesomeIcon
-              icon={faUser}
-              size={40}
-            />
-            <Text style={styles.name}>
-              {tabCard.author[0].firstName} {tabCard.author[0].lastName}
+    <>
+      {cardsData.map((event: any, index: number) => (
+        <TouchableOpacity
+          key={index}
+          onPress={() => handlePress(event)}
+        >
+          <View style={styles.card}>
+            <View style={styles.topCard}>
+              <View style={styles.topCardLeft}>
+                <View style={styles.user}>
+                  <FontAwesomeIcon
+                    icon={faUser}
+                    size={40}
+                  />
+                  <Text style={styles.name}>
+                    {tabCard.author[0].firstName} {tabCard.author[0].lastName}
+                  </Text>
+                  <Text style={styles.distance}>
+                    à {Math.trunc(distance)} km
+                  </Text>
+                </View>
+                <View style={styles.title}>
+                  <Text style={styles.sport}>{event.sport}</Text>
+                  <Text style={styles.date}>{Date.parse(event.date)}</Text>
+                </View>
+              </View>
+              {props.bookmarkOption && <Bookmark />}
+            </View>
+            <Text style={styles.description}>
+              {event.description.substring(0, 110) + '...'}
             </Text>
-            <Text style={styles.distance}>à {Math.trunc(distance)} km</Text>
-          </View>
-          <View style={styles.title}>
-            <Text style={styles.sport}>{tabCard.sport}</Text>
-            <Text style={styles.date}>{tabCard.date}</Text>
-          </View>
-        </View>
-        {props.bookmarkOption && <Bookmark />}
-      </View>
-      <Text style={styles.description}>{descriptionData}</Text>
-      <View style={styles.bottomCard}>
-        <View style={styles.participants}>
-          <Text style={styles.participantsText}>
-            Participants : {tabCard.players.length}/{tabCard.totalPlayers}
-          </Text>
-          {/* Part to display participants with avatar: optionnal */}
-          {/* <FontAwesomeIcon
+            <View style={styles.bottomCard}>
+              <View style={styles.participants}>
+                <Text style={styles.participantsText}>
+                  Participants : {event.players.length}/{event.totalPlayers}
+                </Text>
+                {/* Part to display participants with avatar: optionnal */}
+                {/* <FontAwesomeIcon
             style={styles.participantsLogo}
             icon={faCircle}
             size={20}
@@ -121,9 +151,9 @@ export default function Card(props: bookmarkProps) {
             icon={faCircle}
             size={20}
           /> */}
-        </View>
-        {/* Part to display the level and mood */}
-        {/* <View style={styles.infoIcon}>
+              </View>
+              {/* Part to display the level and mood */}
+              {/* <View style={styles.infoIcon}>
           <FontAwesomeIcon
             style={moodIcon}
             icon={faLeaf}
@@ -135,8 +165,11 @@ export default function Card(props: bookmarkProps) {
             size={20}
           />
         </View> */}
-      </View>
-    </View>
+            </View>
+          </View>
+        </TouchableOpacity>
+      ))}
+    </>
   );
 }
 

@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../reducers/signup';
 import { UserState } from '../reducers/signup';
+import process from 'process';
 
 type typeOfSportProps = {
   fields: {
@@ -25,11 +26,11 @@ export default function SignUpSports({ navigation }: Navigation) {
   const [search, setSearch] = useState<string>('');
   const [selectedSports, setSelectedSports] = useState<string[]>([]);
 
-  const IP = '192.168.217.242';
-
   const userSignUpData = useSelector(
     (state: { signup: UserState }) => state.signup.value
   );
+  console.log(selectedSports);
+  const IP = '10.188.115.145';
 
   const handleSubmit = () => {
     fetch(`http://${IP}:3000/users/signup`, {
@@ -44,7 +45,7 @@ export default function SignUpSports({ navigation }: Navigation) {
         gender: userSignUpData.gender,
         email: userSignUpData.email,
         bio: userSignUpData.bio,
-        sport: selectedSports,
+        sports: selectedSports,
         inscriptionDate: userSignUpData.inscriptionDate,
       }),
     })

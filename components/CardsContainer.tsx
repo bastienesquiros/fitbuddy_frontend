@@ -18,6 +18,7 @@ type cardProps = {
 
 export default function CardsContainer(props: cardProps) {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
+
   return (
     <View style={styles.cardContainer}>
       <View style={styles.topContainer}>

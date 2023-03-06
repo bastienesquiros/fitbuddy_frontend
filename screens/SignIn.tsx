@@ -13,8 +13,6 @@ export default function SignIn({ navigation }: Navigation) {
   // Created an inputStates array to store the state of each input tag. Added a handleFocus function that takes an index as an argument and updates the input tags' state accordingly. This function uses the fill method to set all values to false except for the current index, which is set to true.
   // Modified how we apply the onFocus effect to each input tag by using the current index to determine which tag is active.
 
-  const IP = '192.168.217.242';
-
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [wrongcreditentials, setWrongCreditentials] = useState<boolean>(false);
@@ -30,6 +28,8 @@ export default function SignIn({ navigation }: Navigation) {
     newInputStates[index] = true;
     setInputStates(newInputStates);
   };
+
+  const IP = '10.188.115.145';
 
   const handleSignIn = () => {
     fetch(`http://${IP}:3000/users/signin`, {
