@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Pressable, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import {
+  View,
+  Pressable,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Navigation } from '../models/Navigation';
 
@@ -25,5 +31,5 @@ export default function SettingsIcon({ navigation }: Navigation) {
 const styles = StyleSheet.create({
   buttonSetting: {
     marginRight: Platform.OS === 'ios' ? 20 : 0,
-  }
+  },
 });

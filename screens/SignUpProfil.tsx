@@ -40,7 +40,7 @@ export default function SignUpProfil({ navigation }: Navigation) {
 
   const handleConfirm = (date: any) => {
     setBirthday(date);
-    console.warn('A date has been picked: ', date);
+    // console.warn('A date has been picked: ', date);
     hideDatePicker();
   };
 
@@ -74,9 +74,9 @@ export default function SignUpProfil({ navigation }: Navigation) {
   const handleSubmit = () => {
     dispatch(
       addUser({
-        birthday: birthday,
-        firstName: firstName,
         lastName: lastName,
+        firstName: firstName,
+        birthday: birthday,
         gender: gender,
         bio: bio,
         // avatar: avatar,

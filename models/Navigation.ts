@@ -13,6 +13,7 @@ export type StackParamList = {
   SeeAll: undefined;
   CardsContainer: undefined;
   FullCard: undefined;
+  AddEvent: undefined;
 };
 
 export type TabParamList = {

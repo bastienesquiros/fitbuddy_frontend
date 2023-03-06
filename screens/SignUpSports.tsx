@@ -29,7 +29,7 @@ export default function SignUpSports({ navigation }: Navigation) {
   const userSignUpData = useSelector(
     (state: { signup: UserState }) => state.signup.value
   );
-  console.log(selectedSports);
+
   const IP = '10.188.115.145';
 
   const handleSubmit = () => {
@@ -37,16 +37,16 @@ export default function SignUpSports({ navigation }: Navigation) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        pseudo: userSignUpData.pseudo,
         firstName: userSignUpData.firstName,
         lastName: userSignUpData.lastName,
-        password: userSignUpData.password,
+        pseudo: userSignUpData.pseudo,
         birthday: userSignUpData.birthday,
         gender: userSignUpData.gender,
-        email: userSignUpData.email,
         bio: userSignUpData.bio,
-        sports: selectedSports,
+        email: userSignUpData.email,
+        password: userSignUpData.password,
         inscriptionDate: userSignUpData.inscriptionDate,
+        sports: selectedSports,
       }),
     })
       .then((response) => response.json())
@@ -54,7 +54,7 @@ export default function SignUpSports({ navigation }: Navigation) {
       .catch((error) => {
         console.error('Error during sign up:', error);
       });
-    console.log(userSignUpData);
+    // console.log(userSignUpData);
     navigation.navigate('TabNavigator');
   };
 
