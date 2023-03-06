@@ -25,11 +25,11 @@ export default function SignUpSports({ navigation }: Navigation) {
   const [search, setSearch] = useState<string>('');
   const [selectedSports, setSelectedSports] = useState<string[]>([]);
 
-  const IP = '192.168.1.198';
-
   const userSignUpData = useSelector(
     (state: { signup: UserState }) => state.signup.value
   );
+
+  const IP = '10.33.210.195';
 
   const handleSubmit = () => {
     fetch(`http://${IP}:3000/users/signup`, {

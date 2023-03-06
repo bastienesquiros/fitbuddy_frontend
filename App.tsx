@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import user from './reducers/user';
 import signup from './reducers/signup';
+import event from './reducers/event';
 
 import SettingsIcon from './components/Settings';
 import Message from './components/Message';
@@ -29,12 +30,13 @@ import SignUpProfil from './screens/SignUpProfil';
 import SignUpSports from './screens/SignUpSports';
 import Inbox from './screens/Inbox';
 import SeeAll from './screens/SeeAll';
+import AddEvent from './screens/AddEvent';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
 
 const store = configureStore({
-  reducer: { user, signup },
+  reducer: { user, signup, event },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });
@@ -235,6 +237,11 @@ export default function App() {
           <Stack.Screen
             name="SeeAll"
             component={SeeAll}
+            options={headerWithBackArrowOnly}
+          />
+          <Stack.Screen
+            name="AddEvent"
+            component={AddEvent}
             options={headerWithBackArrowOnly}
           />
         </Stack.Navigator>

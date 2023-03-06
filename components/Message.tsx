@@ -11,10 +11,7 @@ export default function Message({ navigation }: Navigation) {
 
   return (
     <View>
-      <TouchableOpacity
-        onPress={handlePress}
-
-      >
+      <TouchableOpacity onPress={handlePress}>
         <FontAwesome
           name={'paper-plane'}
           size={32.5}

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 150,
-    marginBottom:'30%',
+    marginBottom: '30%',
   },
   button: {
     display: 'flex',
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   buttonText: {
-    fontFamily:'Mukta-Bold',
+    fontFamily: 'Mukta-Bold',
     fontSize: 20,
   },
   buttonGoogle: {
@@ -67,10 +67,10 @@ const styles = StyleSheet.create({
     borderColor: '#1A256A',
     backgroundColor: 'white',
     margin: 20,
-    marginTop:'20%',
+    marginTop: '20%',
   },
   buttonTextGoogle: {
-    fontFamily:'Mukta-Bold',
+    fontFamily: 'Mukta-Bold',
     fontSize: 20,
     color: '#1A256A',
   },

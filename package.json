@@ -36,6 +36,7 @@
     "expo": "48.0.4",
     "expo-app-loading": "^2.1.1",
     "expo-font": "^11.1.1",
+    "expo-location": "^15.1.1",
     "expo-modules-autolinking": "^1.1.2",
     "expo-status-bar": "1.4.4",
     "extglob": "2.0.4",
@@ -45,10 +46,13 @@
     "nanomatch": "1.2.13",
     "process-nextick-args": "2.0.1",
     "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-native": "^0.71.3",
+    "react-native-autocomplete-dropdown": "^2.1.0",
     "react-native-date-picker": "4.2.9",
     "react-native-datepicker": "1.7.2",
     "react-native-element-dropdown": "^2.7.1",
+    "react-native-geocoding": "^0.5.0",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
@@ -68,8 +72,7 @@
     "start": "^5.1.0",
     "typescript": "^4.9.5",
     "which-module": "2.0.0",
-    "yocto-queue": "0.1.0",
-    "react-dom": "18.2.0"
+    "yocto-queue": "0.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
