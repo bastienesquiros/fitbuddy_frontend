@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   View,
   Text,
@@ -10,10 +10,17 @@ import {
 import { Navigation } from '../models/Navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { addUser } from '../reducers/signup';
-import { UserState } from '../reducers/signup';
+import { signUp } from '../reducers/signUp';
 
 export default function SignUpProfil({ navigation }: Navigation) {
+  const dispatch = useDispatch();
+
+  const [birthday, setBirthday] = useState<Date>(new Date());
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [gender, setGender] = useState<string>('');
+  const [bio, setBio] = useState<string>('');
+  const [forgetInput, setForgetInput] = useState<boolean>(false);
   const [inputStates, setInputStates] = useState<Array<boolean>>([
     false,
     false,
@@ -40,21 +47,8 @@ export default function SignUpProfil({ navigation }: Navigation) {
 
   const handleConfirm = (date: any) => {
     setBirthday(date);
-    // console.warn('A date has been picked: ', date);
     hideDatePicker();
   };
-
-  const [birthday, setBirthday] = useState<Date>(new Date());
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  // const [avatar, setAvatar] = useState<string>('avatar');
-  const [gender, setGender] = useState<string>('');
-  const [bio, setBio] = useState<string>('');
-
-  const [forgetInput, setForgetInput] = useState<boolean>(false);
-
-  const today = new Date();
-  const dispatch = useDispatch();
 
   const handleRadioChange = (value: string) => {
     setGender(value);
@@ -63,23 +57,22 @@ export default function SignUpProfil({ navigation }: Navigation) {
   const handleVerifyInput = () => {
     if (lastName === '' || firstName === '' || gender === '') {
       setForgetInput(true);
-      // console.log('birthday =>', birthday, today, gender);
     } else {
       navigation.navigate('SignUpSports');
       setForgetInput(false);
-      // console.log(lastName, firstName, bio, 'birthday =>', birthday, gender);
     }
   };
 
+  const today = new Date();
+
   const handleSubmit = () => {
     dispatch(
-      addUser({
+      signUp({
         lastName: lastName,
         firstName: firstName,
         birthday: birthday,
         gender: gender,
         bio: bio,
-        // avatar: avatar,
         inscriptionDate: today,
       })
     );

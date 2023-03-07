@@ -1,41 +1,35 @@
 import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
-import { StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { EventState, localisationEvent } from '../reducers/event';
+import { useDispatch } from 'react-redux';
+import { localisationEvent } from '../reducers/inputCoords';
 
 export default function AddressInput() {
   const dispatch = useDispatch();
 
-  // const eventLoc = useSelector(
-  //   (state: { event: EventState }) => state.event.value
-  // );
-
-  const [city, setCity] = useState<any>('');
+  const [city, setCity] = useState<string>('');
   const [listCities, setListCities] = useState<any[]>([]);
   const [listCitiesResponse, setListCitiesResponse] = useState<any[]>([]);
 
   // At each change of the input we change the useState city
-  const handleChange = (item: any) => {
+  const handleChange = (item: string) => {
     setCity(item);
   };
 
   // The city is retrieved by clicking on the drop-down list
-  const handleSelect = (item: any) => {
+  const handleSelect = (item: { title: string | null }) => {
     if (item) {
       // We filter the selected city with our query data
-      let res = listCitiesResponse.filter(
+      let res: any[] = listCitiesResponse.filter(
         (e: any) => e.properties.label === item.title
       );
-      let coord = res[0].geometry.coordinates;
+      let coords: number[] = res[0].geometry.coordinates;
 
       dispatch(
         localisationEvent({
-          coord: coord,
+          coords: coords,
         })
-      ); //3.837357 43.589376
+      );
     }
-    // console.log(eventLoc);
   };
 
   useEffect(() => {
@@ -52,11 +46,11 @@ export default function AddressInput() {
         // setListCities : our array that will be used to display the cities in the AutocompleteDropdown component
         // setListCitiesResponse : our table with the data of the response of the request
         return data.features.forEach((e: any) => {
-          setListCities([
-            ...listCities,
+          setListCities((state) => [
+            ...state,
             { id: e.properties.id, title: e.properties.label },
           ]);
-          setListCitiesResponse([...listCitiesResponse, e]);
+          setListCitiesResponse((state) => [...state, e]);
         });
       }
     })();
@@ -91,38 +85,3 @@ export default function AddressInput() {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  text: {
-    color: 'white',
-    fontSize: 50,
-  },
-  input: {
-    backgroundColor: 'red',
-    borderWidth: 1,
-    height: 30,
-    width: '90%',
-  },
-  container: {
-    height: '80%',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'column',
-  },
-  name: {
-    color: 'white',
-  },
-  lat: {
-    color: 'white',
-  },
-  lon: {
-    color: 'white',
-  },
-});

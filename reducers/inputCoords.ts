@@ -1,21 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type EventState = {
+export type InputEventState = {
   value: {
-    coord: number[] | null;
-    // long: number | null;
+    coords: number[] | null;
   };
 };
 
-const initialState: EventState = {
-  value: { coord: null },
+const initialState: InputEventState = {
+  value: { coords: null },
 };
 
 export const eventSlice = createSlice({
-  name: 'event',
+  name: 'inputEvent',
   initialState,
   reducers: {
-    localisationEvent: (state, action: PayloadAction<{ coord: number[] }>) => {
+    localisationEvent: (state, action: PayloadAction<{ coords: number[] }>) => {
       state.value = { ...state.value, ...action.payload };
     },
   },

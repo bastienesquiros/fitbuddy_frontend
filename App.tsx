@@ -5,14 +5,15 @@ import * as SplashScreen from 'expo-splash-screen'; // Import for using splash s
 // redux imports
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
-import user from './reducers/user';
-import signup from './reducers/signup';
-import event from './reducers/event';
+import signIn from './reducers/signIn';
+import signUp from './reducers/signUp';
+import inputEvent from './reducers/inputCoords';
+import userLoc from './reducers/userLoc';
 
 import Navigation from './components/Navigation';
 
 const store = configureStore({
-  reducer: { user, signup, event },
+  reducer: { signUp, inputEvent, userLoc, signIn },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });

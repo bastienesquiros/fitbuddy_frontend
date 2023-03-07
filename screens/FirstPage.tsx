@@ -1,8 +1,33 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Navigation } from '../models/Navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import * as Location from 'expo-location';
+import { addLocation } from '../reducers/userLoc';
 
 export default function FirstPage({ navigation }: Navigation) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status === 'granted') {
+        const location = await Location.getCurrentPositionAsync({});
+        console.log('longitude:', location.coords.latitude);
+        console.log('latitude:', location.coords.longitude);
+
+        dispatch(
+          addLocation({
+            lat: location.coords.latitude,
+            long: location.coords.longitude,
+          })
+        );
+      }
+    })();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Image
@@ -21,7 +46,6 @@ export default function FirstPage({ navigation }: Navigation) {
       >
         <Text style={styles.buttonText}>Connexion</Text>
       </TouchableOpacity>
-
       <TouchableOpacity style={styles.buttonGoogle}>
         <Text style={styles.buttonTextGoogle}>Connect With Google</Text>
       </TouchableOpacity>

@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Navigation } from '../models/Navigation';
+import { View, Text, StyleSheet } from 'react-native';
 
-export default function Bookmarked({ navigation }: Navigation) {
+export default function Bookmarked() {
   return (
     <View style={styles.container}>
       <Text>Bookmarked Screen</Text>

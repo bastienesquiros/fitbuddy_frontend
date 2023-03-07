@@ -10,10 +10,8 @@ import {
 import { Navigation } from '../models/Navigation';
 import SportCard from '../components/SportCard';
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addUser } from '../reducers/signup';
-import { UserState } from '../reducers/signup';
-import process from 'process';
+import { SignUpState } from '../reducers/signUp';
+import { useSelector } from 'react-redux';
 
 type typeOfSportProps = {
   fields: {
@@ -27,10 +25,10 @@ export default function SignUpSports({ navigation }: Navigation) {
   const [selectedSports, setSelectedSports] = useState<string[]>([]);
 
   const userSignUpData = useSelector(
-    (state: { signup: UserState }) => state.signup.value
+    (state: { signUp: SignUpState }) => state.signUp.value
   );
 
-  const IP = '10.188.115.145';
+  const IP = '10.33.210.159';
 
   const handleSubmit = () => {
     fetch(`http://${IP}:3000/users/signup`, {
@@ -48,13 +46,7 @@ export default function SignUpSports({ navigation }: Navigation) {
         inscriptionDate: userSignUpData.inscriptionDate,
         sports: selectedSports,
       }),
-    })
-      .then((response) => response.json())
-      // .then((res) => console.log(res))
-      .catch((error) => {
-        console.error('Error during sign up:', error);
-      });
-    // console.log(userSignUpData);
+    }).then((response) => response.json());
     navigation.navigate('TabNavigator');
   };
 

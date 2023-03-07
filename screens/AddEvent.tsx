@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -11,14 +11,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AddressInput from '../components/AddressInput';
 import { useSelector } from 'react-redux';
-import { EventState } from '../reducers/event';
-import { UserState } from '../reducers/user';
-// import Geocoder from 'react-native-geocoding';
+import { InputEventState } from '../reducers/inputCoords';
+import { SignInState } from '../reducers/signIn';
 
 export default function AddEvent({ navigation }: Navigation) {
   // Created an inputStates array to store the state of each input tag. Added a handleFocus function that takes an index as an argument and updates the input tags' state accordingly. This function uses the fill method to set all values to false except for the current index, which is set to true.
   // Modified how we apply the onFocus effect to each input tag by using the current index to determine which tag is active.
-
   const [inputStates, setInputStates] = useState<Array<boolean>>([
     false,
     false,
@@ -27,18 +25,17 @@ export default function AddEvent({ navigation }: Navigation) {
   ]);
 
   const [sport, setSport] = useState<string | undefined>();
-  const [address, setAddress] = useState<string>();
   const [date, setDate] = useState<Date>(new Date());
-  // const [lat, setLat] = useState<number>();
-  // const [long, setLong] = useState<number>();
   const [totalPlayers, setTotalPlayers] = useState<string | undefined>();
   const [description, setDescription] = useState<string | undefined>();
+  const [isDatePickerVisible, setDatePickerVisibility] =
+    useState<boolean>(false);
 
   const eventLoc = useSelector(
-    (state: { event: EventState }) => state.event.value
+    (state: { inputEvent: InputEventState }) => state.inputEvent.value
   );
   const userToken = useSelector(
-    (state: { user: UserState }) => state.user.value
+    (state: { signIn: SignInState }) => state.signIn.value
   );
 
   const handleFocus = (index: number) => {
@@ -47,9 +44,6 @@ export default function AddEvent({ navigation }: Navigation) {
     newInputStates[index] = true;
     setInputStates(newInputStates);
   };
-
-  const [isDatePickerVisible, setDatePickerVisibility] =
-    useState<boolean>(false);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -61,11 +55,10 @@ export default function AddEvent({ navigation }: Navigation) {
 
   const handleConfirm = (date: any) => {
     setDate(date);
-    console.log('A date has been picked: ', date);
     hideDatePicker();
   };
 
-  const IP = '10.33.210.195';
+  const IP = '10.33.210.159';
 
   const handleAddEvent = () => {
     fetch(`http://${IP}:3000/events/add`, {
@@ -75,14 +68,13 @@ export default function AddEvent({ navigation }: Navigation) {
         token: userToken.token,
         sport: sport,
         date: date,
-        address: eventLoc.coord,
+        address: eventLoc.coords,
         totalPlayers: totalPlayers,
         description: description,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         if (data.result) {
           navigation.navigate('Home');
         }
@@ -113,13 +105,6 @@ export default function AddEvent({ navigation }: Navigation) {
           onCancel={hideDatePicker}
         />
         <AddressInput />
-        {/* <TextInput
-          style={[styles.input, inputStates[1] && styles.inputFocus]}
-          onFocus={() => handleFocus(1)}
-          placeholder="Adresse"
-          onChangeText={(value: string) => setAddress(value)}
-          value={address}
-        /> */}
         <TextInput
           style={[styles.input, inputStates[1] && styles.inputFocus]}
           onFocus={() => handleFocus(1)}

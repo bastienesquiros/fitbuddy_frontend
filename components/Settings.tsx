@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  View,
-  Pressable,
-  StyleSheet,
-  TouchableOpacity,
-  Platform,
-} from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Navigation } from '../models/Navigation';
 

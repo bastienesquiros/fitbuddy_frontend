@@ -8,24 +8,18 @@ import {
 } from 'react-native';
 import { Navigation } from '../models/Navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useDispatch, useSelector } from 'react-redux';
-import { login, UserState } from '../reducers/user';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../reducers/signIn';
 
 export default function SignIn({ navigation }: Navigation) {
-  // Created an inputStates array to store the state of each input tag. Added a handleFocus function that takes an index as an argument and updates the input tags' state accordingly. This function uses the fill method to set all values to false except for the current index, which is set to true.
-  // Modified how we apply the onFocus effect to each input tag by using the current index to determine which tag is active.
-
   const dispatch = useDispatch();
-
-  const userToken = useSelector(
-    (state: { user: UserState }) => state.user.value
-  );
-  console.log(userToken);
 
   const [password, setPassword] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [wrongcreditentials, setWrongCreditentials] = useState<boolean>(false);
 
+  // Created an inputStates array to store the state of each input tag. Added a handleFocus function that takes an index as an argument and updates the input tags' state accordingly. This function uses the fill method to set all values to false except for the current index, which is set to true.
+  // Modified how we apply the onFocus effect to each input tag by using the current index to determine which tag is active.
   const [inputStates, setInputStates] = useState<Array<boolean>>([
     false,
     false,
@@ -38,7 +32,7 @@ export default function SignIn({ navigation }: Navigation) {
     setInputStates(newInputStates);
   };
 
-  const IP = '10.188.115.145';
+  const IP = '10.33.210.159';
 
   const handleSignIn = () => {
     fetch(`http://${IP}:3000/users/signin`, {
@@ -52,12 +46,10 @@ export default function SignIn({ navigation }: Navigation) {
       .then((response) => response.json())
       .then((res) => {
         if (res.result) {
-          dispatch(login({ token: res.token }));
+          dispatch(signIn({ token: res.token }));
           navigation.navigate('TabNavigator');
-          // console.log(res);
         } else {
           setWrongCreditentials(true);
-          // console.log(res);
         }
       });
   };

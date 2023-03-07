@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -22,6 +22,7 @@ import SignUpSports from '../screens/SignUpSports';
 import Inbox from '../screens/Inbox';
 import SeeAll from '../screens/SeeAll';
 import AddEvent from '../screens/AddEvent';
+import FullCard from '../screens/FullCard';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -199,6 +200,11 @@ export default function Navigation() {
         <Stack.Screen
           name="AddEvent"
           component={AddEvent}
+          options={headerWithBackArrowOnly}
+        />
+        <Stack.Screen
+          name="FullCard"
+          component={FullCard}
           options={headerWithBackArrowOnly}
         />
       </Stack.Navigator>

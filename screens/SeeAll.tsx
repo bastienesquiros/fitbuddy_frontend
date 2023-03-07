@@ -1,19 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import Message from '../components/Message';
-import Card from '../components/Card';
+import { View, StyleSheet, Text } from 'react-native';
 
 export default function SeeAll() {
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <Card bookmarkOption={false} />
-        <Card bookmarkOption={false} />
-        <Card bookmarkOption={false} />
-        <Card bookmarkOption={false} />
-        <Card bookmarkOption={false} />
-        <Card bookmarkOption={false} />
-      </ScrollView>
+      <Text>See All</Text>
     </View>
   );
 }

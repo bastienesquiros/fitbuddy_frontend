@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addUser } from '../reducers/signup';
-import { UserState } from '../reducers/signup';
+import { useDispatch } from 'react-redux';
+import { signUp } from '../reducers/signUp';
 import {
   View,
   Text,
@@ -13,8 +12,6 @@ import { Navigation } from '../models/Navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SignUpInscription({ navigation }: Navigation) {
-  // Created an inputStates array to store the state of each input tag. Added a handleFocus function that takes an index as an argument and updates the input tags' state accordingly. This function uses the fill method to set all values to false except for the current index, which is set to true.
-  // Modified how we apply the onFocus effect to each input tag by using the current index to determine which tag is active.
   const dispatch = useDispatch();
 
   const [inputStates, setInputStates] = useState<Array<boolean>>([
@@ -49,19 +46,16 @@ export default function SignUpInscription({ navigation }: Navigation) {
       setForgetInput(false);
       if (password === passwordAgain && EMAIL_REGEX.test(email)) {
         navigation.navigate('SignUpProfil');
-        // console.log('navigate');
-        // console.log(pseudo, email, password, passwordAgain);
         setPasswordError(false);
       } else {
         setPasswordError(true);
-        // console.log('mauvais mot de passe');
       }
     }
   };
 
   const handleSubmit = () => {
     dispatch(
-      addUser({
+      signUp({
         pseudo: pseudo,
         email: email,
         password: password,
@@ -115,7 +109,7 @@ export default function SignUpInscription({ navigation }: Navigation) {
         }}
         style={styles.button}
       >
-        <Text style={styles.buttonText}> Inscription </Text>
+        <Text style={styles.buttonText}>Inscription</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );

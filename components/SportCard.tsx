@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Picker from './Picker';
 
 type SportCardProps = {
   key: number;
@@ -14,9 +13,6 @@ export default function SportCard(props: SportCardProps) {
       <View style={styles.contentContainer}>
         <View style={styles.textContainer}>
           <Text style={styles.title}>{props.sport}</Text>
-        </View>
-        <View style={styles.pickerContainer}>
-          <Picker />
         </View>
       </View>
     </View>
@@ -38,13 +34,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '70%',
   },
-  pickerContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-    height: '50%',
-  },
   title: {
     color: 'black',
     fontSize: 14,
@@ -52,7 +41,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Mukta-Bold',
     textAlign: 'center',
   },
-
   textContainer: {
     width: '100%',
     height: '65%',

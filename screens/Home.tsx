@@ -1,53 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 import CardsContainer from '../components/CardsContainer';
 import { Navigation } from '../models/Navigation';
-import * as Location from 'expo-location';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addLocation } from '../reducers/user';
 
 export default function Home({ navigation }: Navigation) {
-  const dispatch = useDispatch();
-  //const locationReduc = useSelector((state: any) => state.user.value);
-  const [lat, setLat] = useState<any>();
-  const [long, setLong] = useState<any>();
-  useEffect(() => {
-    (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
+  const [refreshing, setRefreshing] = React.useState(false);
 
-      if (status === 'granted') {
-        const location = await Location.getCurrentPositionAsync({});
-        setLat(location.coords.latitude);
-        setLong(location.coords.longitude);
-      }
-      dispatch(addLocation({ lat: lat, long: long }));
-    })();
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
   }, []);
-
-  // console.log('location reducer: '+ locationReduc.lat);
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <CardsContainer
-          bookmarkOption={true}
-          screenName={'SeeAll'}
-        />
-        <CardsContainer
-          bookmarkOption={false}
-          screenName={'SeeAll'}
-        />
-        <CardsContainer
-          bookmarkOption={true}
-          screenName={'SeeAll'}
-        />
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
         <CardsContainer
           bookmarkOption={true}
           screenName={'SeeAll'}
@@ -90,7 +72,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   addEventText: {
-    // bottom: 10,
     fontFamily: 'Mukta-Bold',
     color: 'white',
     fontSize: 35,
