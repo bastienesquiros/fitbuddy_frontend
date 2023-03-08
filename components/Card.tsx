@@ -2,33 +2,19 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import Bookmark from './Bookmark';
-// import { NavigationProp, ParamListBase } from '@react-navigation/native';
-// import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-type bookmarkProps = {
-  firstName: string;
-  pseudo: string;
-  description: string;
-  date: any;
-  sport: string;
-  totalPlayers: number;
-  participants: number;
-  distance: number;
-  bookmarkOption: boolean;
-};
+export default function Card(props: any) {
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
-export default function Card(props: bookmarkProps) {
-  // const navigation = useNavigation<NavigationProp<ParamListBase>>();
-
-  // const handlePress = (props: any[]) => {
-  //   navigation.navigate('FullCard', props);
-  // };
+  const handlePress = (props: any[]) => {
+    navigation.navigate('FullCard', props);
+  };
 
   return (
     <>
-      <TouchableOpacity
-      // onPress={() => handlePress()}
-      >
+      <TouchableOpacity onPress={() => handlePress(props)}>
         <View style={styles.card}>
           <View style={styles.topCard}>
             <View style={styles.topCardLeft}>
@@ -49,7 +35,7 @@ export default function Card(props: bookmarkProps) {
                 <Text>{props.date}</Text>
               </View>
             </View>
-            {props.bookmarkOption && <Bookmark />}
+            {/* {props.bookmarkOption && <Bookmark />} */}
           </View>
           <Text style={styles.description}>{props.description}</Text>
           <View style={styles.bottomCard}>

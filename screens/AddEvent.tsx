@@ -58,7 +58,7 @@ export default function AddEvent({ navigation }: Navigation) {
     hideDatePicker();
   };
 
-  const IP = '10.33.210.159';
+  const IP = '10.33.210.195';
 
   const handleAddEvent = () => {
     fetch(`http://${IP}:3000/events/add`, {

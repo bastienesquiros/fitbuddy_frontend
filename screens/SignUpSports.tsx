@@ -28,7 +28,7 @@ export default function SignUpSports({ navigation }: Navigation) {
     (state: { signUp: SignUpState }) => state.signUp.value
   );
 
-  const IP = '10.33.210.159';
+  const IP = '10.33.210.195';
 
   const handleSubmit = () => {
     fetch(`http://${IP}:3000/users/signup`, {

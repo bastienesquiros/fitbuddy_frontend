@@ -10,13 +10,16 @@ import Card from './Card';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UserLocState } from '../reducers/userLoc';
 import React from 'react';
+import { SignInState } from '../reducers/signIn';
 
 type cardProps = {
   screenName: string;
-  bookmarkOption: boolean;
+  // bookmarkOption: boolean;
+  title: string;
+  route: string;
 };
 
 export default function CardsContainer(props: cardProps) {
@@ -29,6 +32,10 @@ export default function CardsContainer(props: cardProps) {
     (state: { userLoc: UserLocState }) => state.userLoc.value
   );
 
+  const userToken = useSelector(
+    (state: { signIn: SignInState }) => state.signIn.value
+  );
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
@@ -36,10 +43,14 @@ export default function CardsContainer(props: cardProps) {
     }, 2000);
   }, []);
 
-  const IP = '10.33.210.159';
+  const IP = '10.33.210.195';
 
   useEffect(() => {
-    fetch(`http://${IP}:3000/events`)
+    fetch(`http://${IP}:3000/events/${props.route}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: userToken.token }),
+    })
       .then((response) => response.json())
       .then((eventsData) => {
         setCardsData(eventsData.events);
@@ -87,10 +98,11 @@ export default function CardsContainer(props: cardProps) {
         description={card.description.substring(0, 110) + '...'}
         totalPlayers={card.totalPlayers}
         participants={card.players.length}
-        bookmarkOption={props.bookmarkOption}
+        // bookmarkOption={props.bookmarkOption}
         firstName={card.author.firstName}
         pseudo={card.author.pseudo}
         distance={distanceNb}
+        cardId={card._id}
       />
     );
   });
@@ -98,7 +110,7 @@ export default function CardsContainer(props: cardProps) {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.topContainer}>
-        <Text style={styles.title}>Pour moi</Text>
+        <Text style={styles.title}>{props.title}</Text>
         <TouchableOpacity onPress={() => navigation.navigate(props.screenName)}>
           <Text style={styles.buttonSeeAll}>Tout voir</Text>
         </TouchableOpacity>

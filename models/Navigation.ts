@@ -25,5 +25,6 @@ export type TabParamList = {
 };
 
 export type Navigation = {
+  navigate(arg0: string): void;
   navigation: NavigationProp<ParamListBase>;
 };

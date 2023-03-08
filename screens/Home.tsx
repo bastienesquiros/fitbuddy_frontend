@@ -31,8 +31,16 @@ export default function Home({ navigation }: Navigation) {
         }
       >
         <CardsContainer
-          bookmarkOption={true}
+          // bookmarkOption={true}
           screenName={'SeeAll'}
+          title={'Tout voir'}
+          route={'forme'}
+        />
+        <CardsContainer
+          // bookmarkOption={true}
+          screenName={'SeeAll'}
+          title={'Découvertes'}
+          route={'discover'}
         />
       </ScrollView>
       <TouchableOpacity
