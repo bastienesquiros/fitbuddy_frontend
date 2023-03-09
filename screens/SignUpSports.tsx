@@ -10,8 +10,8 @@ import {
 import { Navigation } from '../models/Navigation';
 import SportCard from '../components/SportCard';
 import { useState, useEffect } from 'react';
-import { SignUpState } from '../reducers/signUp';
-import { useSelector } from 'react-redux';
+import { signUp, UserState } from '../reducers/user';
+import { useDispatch, useSelector } from 'react-redux';
 
 type typeOfSportProps = {
   fields: {
@@ -20,15 +20,16 @@ type typeOfSportProps = {
 };
 
 export default function SignUpSports({ navigation }: Navigation) {
+  const dispatch = useDispatch();
   const [sports, setSports] = useState<string[]>([]);
   const [search, setSearch] = useState<string>('');
   const [selectedSports, setSelectedSports] = useState<string[]>([]);
 
   const userSignUpData = useSelector(
-    (state: { signUp: SignUpState }) => state.signUp.value
+    (state: { user: UserState }) => state.user.value
   );
 
-  const IP = '10.33.210.195';
+  const IP = '10.33.210.159';
 
   const handleSubmit = () => {
     fetch(`http://${IP}:3000/users/signup`, {
@@ -46,7 +47,23 @@ export default function SignUpSports({ navigation }: Navigation) {
         inscriptionDate: userSignUpData.inscriptionDate,
         sports: selectedSports,
       }),
-    }).then((response) => response.json());
+    })
+      .then((response) => response.json())
+      .then((userData) =>
+        dispatch(
+          signUp({
+            email: userData.user.email,
+            firstName: userData.user.firstName,
+            lastName: userData.user.lastName,
+            pseudo: userData.user.pseudo,
+            birthday: userData.user.birthday,
+            gender: userData.user.gender,
+            bio: userData.user.bio,
+            inscriptionDate: userData.user.inscriptionDate,
+            token: userData.user.token,
+          })
+        )
+      );
     navigation.navigate('TabNavigator');
   };
 

@@ -4,7 +4,7 @@ import { Navigation } from '../models/Navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import * as Location from 'expo-location';
-import { addLocation } from '../reducers/userLoc';
+import { addLocation } from '../reducers/user';
 
 export default function FirstPage({ navigation }: Navigation) {
   const dispatch = useDispatch();
@@ -15,8 +15,6 @@ export default function FirstPage({ navigation }: Navigation) {
 
       if (status === 'granted') {
         const location = await Location.getCurrentPositionAsync({});
-        console.log('longitude:', location.coords.latitude);
-        console.log('latitude:', location.coords.longitude);
 
         dispatch(
           addLocation({

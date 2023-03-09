@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { signUp } from '../reducers/signUp';
+import { signUp } from '../reducers/user';
 import {
   View,
   Text,

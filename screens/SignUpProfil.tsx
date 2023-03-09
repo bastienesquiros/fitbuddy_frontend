@@ -10,7 +10,7 @@ import {
 import { Navigation } from '../models/Navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { signUp } from '../reducers/signUp';
+import { signUp } from '../reducers/user';
 
 export default function SignUpProfil({ navigation }: Navigation) {
   const dispatch = useDispatch();

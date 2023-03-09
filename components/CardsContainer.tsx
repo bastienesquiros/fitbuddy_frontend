@@ -10,10 +10,11 @@ import Card from './Card';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { UserLocState } from '../reducers/userLoc';
+import { useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
+
+import { UserState } from '../reducers/user';
 import React from 'react';
-import { SignInState } from '../reducers/signIn';
 
 type cardProps = {
   screenName: string;
@@ -25,41 +26,28 @@ type cardProps = {
 export default function CardsContainer(props: cardProps) {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
-  const [refreshing, setRefreshing] = React.useState(false);
   const [cardsData, setCardsData] = useState<[]>([]);
 
-  const userLoc = useSelector(
-    (state: { userLoc: UserLocState }) => state.userLoc.value
-  );
+  const user = useSelector((state: { user: UserState }) => state.user.value);
+  const isFocused = useIsFocused();
 
-  const userToken = useSelector(
-    (state: { signIn: SignInState }) => state.signIn.value
-  );
-
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
-  }, []);
-
-  const IP = '10.33.210.195';
+  const IP = '10.33.210.159';
 
   useEffect(() => {
     fetch(`http://${IP}:3000/events/${props.route}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: userToken.token }),
+      body: JSON.stringify({ token: user.token }),
     })
       .then((response) => response.json())
       .then((eventsData) => {
         setCardsData(eventsData.events);
       });
-  }, [refreshing]);
+  }, [isFocused]);
 
   const distanceNumber = function (long: number, lat: number) {
-    let lat1: number = userLoc.lat;
-    let lng1: number = userLoc.long;
+    let lat1: number = user.lat;
+    let lng1: number = user.long;
     let lat2: any = lat;
     let lng2: any = long;
     var R = 6371; // Radius of the earth in km
@@ -82,11 +70,7 @@ export default function CardsContainer(props: cardProps) {
   const cards = cardsData.map((card: any, j) => {
     let distanceNb;
     const dateFormat: any = new Date(card.date).toUTCString();
-    if (
-      userLoc.lat !== null ||
-      userLoc.lat !== undefined ||
-      userLoc.lat !== 0
-    ) {
+    if (user.lat !== null || user.lat !== undefined || user.lat !== 0) {
       distanceNb = distanceNumber(card.address[0], card.address[1]);
     }
     return (
@@ -111,17 +95,11 @@ export default function CardsContainer(props: cardProps) {
     <View style={styles.cardContainer}>
       <View style={styles.topContainer}>
         <Text style={styles.title}>{props.title}</Text>
-        <TouchableOpacity onPress={() => navigation.navigate(props.screenName)}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate(props.screenName)}>
           <Text style={styles.buttonSeeAll}>Tout voir</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
         style={styles.scroll}
         horizontal={true}
         showsHorizontalScrollIndicator={false}

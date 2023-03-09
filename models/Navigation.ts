@@ -14,6 +14,7 @@ export type StackParamList = {
   CardsContainer: undefined;
   FullCard: undefined;
   AddEvent: undefined;
+  Profil: undefined;
 };
 
 export type TabParamList = {
@@ -25,6 +26,5 @@ export type TabParamList = {
 };
 
 export type Navigation = {
-  navigate(arg0: string): void;
   navigation: NavigationProp<ParamListBase>;
 };

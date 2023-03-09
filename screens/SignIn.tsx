@@ -9,7 +9,7 @@ import {
 import { Navigation } from '../models/Navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch } from 'react-redux';
-import { signIn } from '../reducers/signIn';
+import { signIn } from '../reducers/user';
 
 export default function SignIn({ navigation }: Navigation) {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ export default function SignIn({ navigation }: Navigation) {
     setInputStates(newInputStates);
   };
 
-  const IP = '10.33.210.195';
+  const IP = '10.33.210.159';
 
   const handleSignIn = () => {
     fetch(`http://${IP}:3000/users/signin`, {
@@ -46,7 +46,20 @@ export default function SignIn({ navigation }: Navigation) {
       .then((response) => response.json())
       .then((res) => {
         if (res.result) {
-          dispatch(signIn({ token: res.token }));
+          dispatch(
+            signIn({
+              email: res.user.email,
+              firstName: res.user.firstName,
+              lastName: res.user.lastName,
+              pseudo: res.user.pseudo,
+              birthday: res.user.birthday,
+              gender: res.user.gender,
+              bio: res.user.bio,
+              inscriptionDate: res.user.inscriptionDate,
+              token: res.user.token,
+            })
+          );
+
           navigation.navigate('TabNavigator');
         } else {
           setWrongCreditentials(true);
