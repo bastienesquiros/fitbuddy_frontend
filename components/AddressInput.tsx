@@ -72,7 +72,7 @@ export default function AddressInput() {
       onSelectItem={handleSelect}
       dataSet={listCities}
       inputContainerStyle={{
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
         borderRadius: 10,
         width: '70%',
         borderWidth: 1,

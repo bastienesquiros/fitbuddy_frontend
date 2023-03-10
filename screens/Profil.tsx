@@ -5,20 +5,32 @@ import { deleteBookmarks } from '../reducers/bookmarks';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigation } from '../models/Navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 export default function Profil({ navigation }: Navigation) {
   const user = useSelector((state: { user: UserState }) => state.user.value);
-  // console.log(user.firstName);
 
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
-    // dispatch(deleteBookmarks());
     navigation.navigate('FirstPage');
   };
   return (
     <View style={styles.container}>
-      <View>{/* <FontAwesomeIcon icon={'user'}></FontAwesomeIcon> */}</View>
+      <View style={styles.profil}>
+        <View style={styles.avatar}>
+          <FontAwesomeIcon
+            icon={faUser}
+            size={70}
+          />
+          <View style={styles.identity}>
+            <Text style={styles.name}>{user.firstName}</Text>
+            <Text style={styles.name}> {user.lastName}</Text>
+            <Text style={styles.pseudo}> @{user.pseudo}</Text>
+          </View>
+        </View>
+        <Text style={styles.bio}>{user.bio}</Text>
+      </View>
       <TouchableOpacity
         style={styles.button}
         onPress={() => handleLogout()}
@@ -32,9 +44,39 @@ export default function Profil({ navigation }: Navigation) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  profil: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '100%',
+  },
+  avatar: {
+    height: 120,
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 30,
+  },
+  identity: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+  name: {
+    height: 35,
+    fontSize: 20,
+    fontFamily: 'Mukta-Regular',
+  },
+  pseudo: {
+    fontFamily: 'Mukta-Regular',
   },
   button: {
     display: 'flex',
@@ -50,5 +92,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Mukta-Bold',
     fontSize: 18,
     color: 'white',
+  },
+  bio: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: 'grey',
+    borderRadius: 5,
+    width: '80%',
+    height: 150,
+    padding: 10,
   },
 });

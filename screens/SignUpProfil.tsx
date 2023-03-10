@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { Navigation } from '../models/Navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -79,10 +80,14 @@ export default function SignUpProfil({ navigation }: Navigation) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+    >
       <Text style={styles.title}>Profil</Text>
       <View style={styles.inputs}>
         <TextInput
+          placeholderTextColor="grey"
           style={[styles.input, inputStates[0] && styles.inputFocus]}
           onFocus={() => handleFocus(0)}
           placeholder="Nom"
@@ -90,6 +95,7 @@ export default function SignUpProfil({ navigation }: Navigation) {
           value={lastName}
         />
         <TextInput
+          placeholderTextColor="grey"
           style={[styles.input, inputStates[1] && styles.inputFocus]}
           onFocus={() => handleFocus(1)}
           placeholder="Prénom"
@@ -141,6 +147,7 @@ export default function SignUpProfil({ navigation }: Navigation) {
           </TouchableOpacity>
         </View>
         <TextInput
+          placeholderTextColor="grey"
           style={[styles.inputBio, inputStates[2] && styles.inputFocus]}
           onFocus={() => handleFocus(2)}
           placeholder="Bio"
@@ -160,7 +167,7 @@ export default function SignUpProfil({ navigation }: Navigation) {
       >
         <Text style={styles.buttontext}> Suivant </Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 

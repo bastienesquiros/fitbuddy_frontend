@@ -29,8 +29,7 @@ export default function FullCard({ route, navigation }: FullCardProps) {
 
   const user = useSelector((state: { user: UserState }) => state.user.value);
 
-  const IP = '192.168.1.198';
-  console.log('reducer event', events);
+  const IP = '10.33.210.159';
 
   const eventId = eventData.cardId;
 

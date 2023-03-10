@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { Navigation } from '../models/Navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -64,10 +65,14 @@ export default function SignUpInscription({ navigation }: Navigation) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+    >
       <Text style={styles.title}>Formulaire d'inscription</Text>
       <View style={styles.inputs}>
         <TextInput
+          placeholderTextColor="grey"
           style={[styles.input, inputStates[0] && styles.inputFocus]}
           onFocus={() => handleFocus(0)}
           placeholder="Pseudo"
@@ -75,6 +80,7 @@ export default function SignUpInscription({ navigation }: Navigation) {
           value={pseudo}
         />
         <TextInput
+          placeholderTextColor="grey"
           style={[styles.input, inputStates[1] && styles.inputFocus]}
           onFocus={() => handleFocus(1)}
           placeholder="Adresse mail"
@@ -82,6 +88,8 @@ export default function SignUpInscription({ navigation }: Navigation) {
           value={email}
         />
         <TextInput
+          placeholderTextColor="grey"
+          secureTextEntry={true}
           style={[styles.input, inputStates[2] && styles.inputFocus]}
           onFocus={() => handleFocus(2)}
           placeholder="Mot de passe"
@@ -89,6 +97,8 @@ export default function SignUpInscription({ navigation }: Navigation) {
           value={password}
         />
         <TextInput
+          placeholderTextColor="grey"
+          secureTextEntry={true}
           style={[styles.input, inputStates[3] && styles.inputFocus]}
           onFocus={() => handleFocus(3)}
           placeholder="Répétez votre mot de passe"
@@ -111,7 +121,7 @@ export default function SignUpInscription({ navigation }: Navigation) {
       >
         <Text style={styles.buttonText}>Inscription</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 

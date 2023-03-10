@@ -35,7 +35,6 @@ export default function Card(props: any) {
                 <Text>{props.date}</Text>
               </View>
             </View>
-            {/* {props.bookmarkOption && <Bookmark />} */}
           </View>
           <Text style={styles.description}>{props.description}</Text>
           <View style={styles.bottomCard}>

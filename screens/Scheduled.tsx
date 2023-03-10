@@ -26,7 +26,7 @@ export default function Scheduled() {
 
   const user = useSelector((state: { user: UserState }) => state.user.value);
 
-  const IP = '192.168.1.198';
+  const IP = '10.33.210.159';
 
   useEffect(() => {
     fetch(`http://${IP}:3000/users/myevents`, {

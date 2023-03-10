@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { Navigation } from '../models/Navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -32,7 +33,7 @@ export default function SignIn({ navigation }: Navigation) {
     setInputStates(newInputStates);
   };
 
-  const IP = '192.168.221.242';
+  const IP = '10.33.210.159';
 
   const handleSignIn = () => {
     fetch(`http://${IP}:3000/users/signin`, {
@@ -68,10 +69,14 @@ export default function SignIn({ navigation }: Navigation) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+    >
       <Text style={styles.title}>Connexion</Text>
       <View style={styles.inputs}>
         <TextInput
+          placeholderTextColor="grey"
           style={[styles.input, inputStates[0] && styles.inputFocus]}
           onChangeText={(text: string) => setEmail(text)}
           value={email}
@@ -79,6 +84,8 @@ export default function SignIn({ navigation }: Navigation) {
           placeholder="Adresse mail"
         />
         <TextInput
+          placeholderTextColor="grey"
+          secureTextEntry={true}
           style={[styles.input, inputStates[1] && styles.inputFocus]}
           onChangeText={(text: string) => setPassword(text)}
           value={password}
@@ -95,7 +102,7 @@ export default function SignIn({ navigation }: Navigation) {
       {wrongcreditentials && (
         <Text style={styles.error}>Wrong Creditentials</Text>
       )}
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 

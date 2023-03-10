@@ -31,7 +31,7 @@ export default function CardsContainer(props: cardProps) {
   const user = useSelector((state: { user: UserState }) => state.user.value);
   const isFocused = useIsFocused();
 
-  const IP = '192.168.221.242';
+  const IP = '10.33.210.159';
 
   useEffect(() => {
     fetch(`http://${IP}:3000/events/${props.route}`, {
@@ -83,12 +83,16 @@ export default function CardsContainer(props: cardProps) {
         <Card
           key={j}
           // {...card}
-          sport={card.sport}
+
+          sport={
+            card.sport.length > 13
+              ? card.sport.substring(0, 13) + '...'
+              : card.sport
+          }
           date={dateFormat.substring(0, 16)}
-          description={card.description.substring(0, 110) + '...'}
+          description={card.description}
           totalPlayers={card.totalPlayers}
           participants={card.players.length}
-          // bookmarkOption={props.bookmarkOption}
           firstName={card.author.firstName}
           pseudo={card.author.pseudo}
           distance={distanceNb}

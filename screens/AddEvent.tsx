@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { Navigation } from '../models/Navigation';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -56,7 +57,7 @@ export default function AddEvent({ navigation }: Navigation) {
     hideDatePicker();
   };
 
-  const IP = '192.168.221.242';
+  const IP = '10.33.210.159';
 
   const handleAddEvent = () => {
     fetch(`http://${IP}:3000/events/add`, {
@@ -80,10 +81,14 @@ export default function AddEvent({ navigation }: Navigation) {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+    >
       <Text style={styles.title}>Ajouter un événement</Text>
       <View style={styles.inputs}>
         <TextInput
+          placeholderTextColor="grey"
           style={[styles.input, inputStates[0] && styles.inputFocus]}
           onFocus={() => handleFocus(0)}
           placeholder="Sport"
@@ -104,6 +109,7 @@ export default function AddEvent({ navigation }: Navigation) {
         />
         <AddressInput />
         <TextInput
+          placeholderTextColor="grey"
           style={[styles.input, inputStates[1] && styles.inputFocus]}
           onFocus={() => handleFocus(1)}
           placeholder="Nombre de participants"
@@ -111,6 +117,7 @@ export default function AddEvent({ navigation }: Navigation) {
           value={totalPlayers}
         />
         <TextInput
+          placeholderTextColor="grey"
           style={[styles.inputDescription, inputStates[2] && styles.inputFocus]}
           onFocus={() => handleFocus(2)}
           placeholder="Description..."
@@ -124,7 +131,7 @@ export default function AddEvent({ navigation }: Navigation) {
       >
         <Text style={styles.buttonText}>Ajouter</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
