@@ -10,6 +10,10 @@ import {
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { Navigation } from '../models/Navigation';
 import Bookmark from '../components/Bookmark';
+import events, { addEvent, removeEvent, EventState } from '../reducers/events';
+import { useSelector } from 'react-redux';
+import { UserState } from '../reducers/user';
+import { useDispatch } from 'react-redux';
 
 type FullCardProps = {
   route: any;
@@ -18,6 +22,79 @@ type FullCardProps = {
 
 export default function FullCard({ route, navigation }: FullCardProps) {
   const eventData = route.params;
+  const dispatch = useDispatch();
+  const events = useSelector(
+    (state: { events: EventState }) => state.events.value
+  );
+
+  const user = useSelector((state: { user: UserState }) => state.user.value);
+
+  const IP = '192.168.1.198';
+  console.log('reducer event', events);
+
+  const eventId = eventData.cardId;
+
+  const isMatching = events.some((id) => eventId === id);
+
+  let iconStyle: any = {
+    width: 150,
+    height: 45,
+    backgroundColor: '#1A256A',
+    border: 1,
+    borderRadius: 6,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+  if (isMatching) {
+    iconStyle = {
+      width: 150,
+      height: 45,
+      backgroundColor: 'red',
+      border: 1,
+      borderRadius: 6,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    };
+  }
+
+  const handleClick = () => {
+    if (isMatching) {
+      fetch(`http://${IP}:3000/users/removeevent`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: eventId,
+          token: user.token,
+        }),
+      })
+        .then((response) => response.json())
+        .then((eventDeleteData) => {
+          const result = eventDeleteData.result;
+          if (result) {
+            dispatch(removeEvent(eventId));
+          }
+        });
+    } else {
+      fetch(`http://${IP}:3000/users/addevent`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: eventId,
+          token: user.token,
+        }),
+      })
+        .then((response) => response.json())
+        .then((eventAddData) => {
+          const result = eventAddData.result;
+          if (result) {
+            dispatch(addEvent(eventId));
+          }
+        });
+    }
+    navigation.navigate('Home');
+  };
 
   return (
     <View style={styles.container}>
@@ -52,10 +129,12 @@ export default function FullCard({ route, navigation }: FullCardProps) {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate('Home')}
+          style={iconStyle}
+          onPress={() => handleClick()}
         >
-          <Text style={styles.buttonText}>JE PARTICIPE</Text>
+          <Text style={styles.buttonText}>
+            {!isMatching ? 'PARTICIPER' : 'ME DESINSCRIRE'}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -142,16 +221,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  button: {
-    width: 150,
-    height: 45,
-    backgroundColor: '#1A256A',
-    border: 1,
-    borderRadius: 6,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  // iconStyle: {
+  //   width: 150,
+  //   height: 45,
+  //   backgroundColor: '#1A256A',
+  //   border: 1,
+  //   borderRadius: 6,
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
   buttonText: {
     fontFamily: 'Mukta-Bold',
     fontSize: 18,

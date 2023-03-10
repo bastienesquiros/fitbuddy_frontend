@@ -8,11 +8,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import user from './reducers/user';
 import inputEvent from './reducers/inputCoords';
 import bookmarks from './reducers/bookmarks';
+import events from './reducers/events';
 
 import Navigation from './components/Navigation';
 
 const store = configureStore({
-  reducer: { user, inputEvent, bookmarks },
+  reducer: { user, inputEvent, bookmarks, events },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });

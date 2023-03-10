@@ -30,7 +30,7 @@ export default function Home({ navigation }: Navigation) {
     }, 2000);
   }, []);
 
-  const IP = '10.33.210.159';
+  const IP = '192.168.1.198';
   useEffect(() => {
     fetch(`http://${IP}:3000/users/bookmarks`, {
       method: 'POST',
@@ -42,7 +42,6 @@ export default function Home({ navigation }: Navigation) {
         if (bookmarkData.result) {
           for (let i: number = 0; i < bookmarkData.bookmarks.length; i++) {
             dispatch(addBookmarks(bookmarkData.bookmarks[i]._id));
-            // console.log('les bookmarks que jai deja', bookmarks);
           }
         } else {
         }

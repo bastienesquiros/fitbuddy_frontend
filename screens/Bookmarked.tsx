@@ -27,7 +27,7 @@ export default function Bookmarked() {
 
   const user = useSelector((state: { user: UserState }) => state.user.value);
 
-  const IP = '10.33.210.159';
+  const IP = '192.168.1.198';
 
   useEffect(() => {
     fetch(`http://${IP}:3000/users/bookmarks`, {
@@ -44,8 +44,6 @@ export default function Bookmarked() {
         }
       });
   }, [refreshing, isFocused]);
-
-  console.log('carteData', cardsData);
 
   const distanceNumber = function (long: number, lat: number) {
     let lat1: number = user.lat;
@@ -70,7 +68,6 @@ export default function Bookmarked() {
   }
 
   const cards = cardsData.map((card: any, j) => {
-    console.log('carte', card);
     let distanceNb;
     const dateFormat: any = new Date(card.date).toUTCString();
     if (user.lat !== null || user.lat !== undefined || user.lat !== 0) {

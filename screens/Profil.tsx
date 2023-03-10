@@ -1,19 +1,24 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { logout } from '../reducers/user';
+import { logout, UserState } from '../reducers/user';
 import { deleteBookmarks } from '../reducers/bookmarks';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigation } from '../models/Navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 export default function Profil({ navigation }: Navigation) {
+  const user = useSelector((state: { user: UserState }) => state.user.value);
+  // console.log(user.firstName);
+
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout());
-    dispatch(deleteBookmarks());
+    // dispatch(deleteBookmarks());
     navigation.navigate('FirstPage');
   };
   return (
     <View style={styles.container}>
+      <View>{/* <FontAwesomeIcon icon={'user'}></FontAwesomeIcon> */}</View>
       <TouchableOpacity
         style={styles.button}
         onPress={() => handleLogout()}

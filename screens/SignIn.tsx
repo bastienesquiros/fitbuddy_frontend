@@ -32,7 +32,7 @@ export default function SignIn({ navigation }: Navigation) {
     setInputStates(newInputStates);
   };
 
-  const IP = '10.33.210.159';
+  const IP = '192.168.1.198';
 
   const handleSignIn = () => {
     fetch(`http://${IP}:3000/users/signin`, {

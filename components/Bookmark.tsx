@@ -25,7 +25,7 @@ export default function Bookmark(props: any) {
   if (isMatching) {
     iconStyle = { color: 'red' };
   }
-  const IP = '10.33.210.159';
+  const IP = '192.168.1.198';
 
   const handleClick = () => {
     if (isMatching) {
@@ -63,10 +63,6 @@ export default function Bookmark(props: any) {
     }
   };
 
-  console.log('id des events bookmarkées par luser:', userBookmarksId);
-  console.log('id de levent:', eventId);
-  console.log('match?:', isMatching);
-
   return (
     <View>
       <TouchableOpacity onPress={() => handleClick()}>
@@ -79,43 +75,3 @@ export default function Bookmark(props: any) {
     </View>
   );
 }
-
-// const [bookmarkClick, setBookmarkClick] = useState(false);
-
-// // const [bookmarks, setBookmarks] = useState<[]>([]);
-
-// const bookmarksCard = useSelector(
-//   (state: { bookmarks: BookmarkState }) => state.bookmarks.value
-// );
-
-// console.log(bookmarksCard);
-// const user = useSelector((state: { user: UserState }) => state.user.value);
-
-// let markStyle = {};
-// if (bookmarkClick) {
-//   markStyle = { color: 'red' };
-// }
-
-// const handleClick = () => {
-//   setBookmarkClick(!bookmarkClick);
-
-//   if (props.cardId && !bookmarkClick) {
-//     fetch(`http://${IP}:3000/users/addbookmark`, {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({
-//         id: props.cardId,
-//         token: user.token,
-//       }),
-//     }).then((response) => response.json());
-//   } else {
-//     fetch(`http://${IP}:3000/users/removebookmark`, {
-//       method: 'DELETE',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({
-//         id: props.cardId,
-//         token: user.token,
-//       }),
-//     }).then((response) => response.json());
-//   }
-// };
