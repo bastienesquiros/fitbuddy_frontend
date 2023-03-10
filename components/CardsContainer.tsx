@@ -31,7 +31,7 @@ export default function CardsContainer(props: cardProps) {
   const user = useSelector((state: { user: UserState }) => state.user.value);
   const isFocused = useIsFocused();
 
-  const IP = '10.33.210.159';
+  const IP = '192.168.221.242';
 
   useEffect(() => {
     fetch(`http://${IP}:3000/events/${props.route}`, {
