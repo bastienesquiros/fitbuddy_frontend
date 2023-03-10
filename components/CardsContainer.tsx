@@ -67,30 +67,35 @@ export default function CardsContainer(props: cardProps) {
     return (deg * Math.PI) / 180;
   }
 
-  const cards = cardsData.map((card: any, j) => {
-    let distanceNb;
-    const dateFormat: any = new Date(card.date).toUTCString();
-    if (user.lat !== null || user.lat !== undefined || user.lat !== 0) {
-      distanceNb = distanceNumber(card.address[0], card.address[1]);
-    }
-    return (
-      <Card
-        key={j}
-        {...card}
-        sport={card.sport}
-        date={dateFormat.substring(0, 16)}
-        description={card.description.substring(0, 110) + '...'}
-        totalPlayers={card.totalPlayers}
-        participants={card.players.length}
-        // bookmarkOption={props.bookmarkOption}
-        firstName={card.author.firstName}
-        pseudo={card.author.pseudo}
-        distance={distanceNb}
-        cardId={card._id}
-      />
-    );
-  });
-
+  const cards = cardsData
+    // .sort((e: any, f: any) => {
+    //   const dateFormat1: number = new Date(e.date).getTime();
+    //   const dateFormat2: number = new Date(f.date).getTime();
+    //   return dateFormat1 - dateFormat2;
+    // })
+    .map((card: any, j) => {
+      let distanceNb;
+      const dateFormat: any = new Date(card.date).toUTCString();
+      if (user.lat !== null || user.lat !== undefined || user.lat !== 0) {
+        distanceNb = distanceNumber(card.address[0], card.address[1]);
+      }
+      return (
+        <Card
+          key={j}
+          // {...card}
+          sport={card.sport}
+          date={dateFormat.substring(0, 16)}
+          description={card.description.substring(0, 110) + '...'}
+          totalPlayers={card.totalPlayers}
+          participants={card.players.length}
+          // bookmarkOption={props.bookmarkOption}
+          firstName={card.author.firstName}
+          pseudo={card.author.pseudo}
+          distance={distanceNb}
+          cardId={card._id}
+        />
+      );
+    });
   return (
     <View style={styles.cardContainer}>
       <View style={styles.topContainer}>

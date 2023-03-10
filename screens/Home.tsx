@@ -42,7 +42,6 @@ export default function Home({ navigation }: Navigation) {
         if (bookmarkData.result) {
           for (let i: number = 0; i < bookmarkData.bookmarks.length; i++) {
             dispatch(addBookmarks(bookmarkData.bookmarks[i]._id));
-            // console.log('les bookmarks que jai deja', bookmarks);
           }
         } else {
         }
