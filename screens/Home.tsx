@@ -30,9 +30,8 @@ export default function Home({ navigation }: Navigation) {
     }, 2000);
   }, []);
 
-  const IP = '10.33.210.159';
   useEffect(() => {
-    fetch(`http://${IP}:3000/users/bookmarks`, {
+    fetch(`https://fitbuddy-backend.vercel.app/users/bookmarks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json ' },
       body: JSON.stringify({ token: user.token }),

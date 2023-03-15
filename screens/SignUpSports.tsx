@@ -29,10 +29,8 @@ export default function SignUpSports({ navigation }: Navigation) {
     (state: { user: UserState }) => state.user.value
   );
 
-  const IP = '10.33.210.159';
-
   const handleSubmit = () => {
-    fetch(`http://${IP}:3000/users/signup`, {
+    fetch(`https://fitbuddy-backend.vercel.app/users/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

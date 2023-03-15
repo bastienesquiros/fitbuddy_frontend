@@ -29,8 +29,6 @@ export default function FullCard({ route, navigation }: FullCardProps) {
 
   const user = useSelector((state: { user: UserState }) => state.user.value);
 
-  const IP = '10.33.210.159';
-
   const eventId = eventData.cardId;
 
   const isMatching = events.some((id) => eventId === id);
@@ -60,7 +58,7 @@ export default function FullCard({ route, navigation }: FullCardProps) {
 
   const handleClick = () => {
     if (isMatching) {
-      fetch(`http://${IP}:3000/users/removeevent`, {
+      fetch(`https://fitbuddy-backend.vercel.app/users/removeevent`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -76,7 +74,7 @@ export default function FullCard({ route, navigation }: FullCardProps) {
           }
         });
     } else {
-      fetch(`http://${IP}:3000/users/addevent`, {
+      fetch(`https://fitbuddy-backend.vercel.app/users/addevent`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -25,11 +25,10 @@ export default function Bookmark(props: any) {
   if (isMatching) {
     iconStyle = { color: 'red' };
   }
-  const IP = '10.33.210.159';
 
   const handleClick = () => {
     if (isMatching) {
-      fetch(`http://${IP}:3000/users/removebookmark`, {
+      fetch(`https://fitbuddy-backend.vercel.app/users/removebookmark`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -45,7 +44,7 @@ export default function Bookmark(props: any) {
           }
         });
     } else {
-      fetch(`http://${IP}:3000/users/addbookmark`, {
+      fetch(`https://fitbuddy-backend.vercel.app/users/addbookmark`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

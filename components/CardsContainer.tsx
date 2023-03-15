@@ -31,10 +31,8 @@ export default function CardsContainer(props: cardProps) {
   const user = useSelector((state: { user: UserState }) => state.user.value);
   const isFocused = useIsFocused();
 
-  const IP = '10.33.210.159';
-
   useEffect(() => {
-    fetch(`http://${IP}:3000/events/${props.route}`, {
+    fetch(`https://fitbuddy-backend.vercel.app/events/${props.route}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token: user.token }),
